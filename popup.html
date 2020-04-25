@@ -3,18 +3,33 @@
 
 <head>
     <title>The Popup</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
-    <div id='selection'></div>
-    <div>
-        <button type="button" id="trueBtn">True</button>
-        <button type="button" id="falseBtn">False</button>
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col' id='selection'></div>
+        </div>
+        <div class='row'>
+            <div class='col'>
+                <button type="button" class="btn btn-success" id="trueBtn">True</button>
+            </div>
+            <div class='col'>
+                <button type="button" class="btn btn-danger" id="falseBtn">False</button>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col'>
+                <button type="button" class="btn btn-link" id="seeMoreBtn">Click here to see your beliefs</button>
+            </div>
+        </div>
     </div>
-    <button type="button" class="linkBtn" id="seeMoreBtn">Click here to see your beliefs</button>
 
-    <script type="text/javascript" src="popup.js"></script>
+    <script src="js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -1,16 +1,27 @@
 const bkg = chrome.extension.getBackgroundPage()
+const selectionEl = document.getElementById('selection')
+const trueBtn = document.getElementById('trueBtn')
+const falseBtn = document.getElementById('falseBtn')
+const seeMoreBtn = document.getElementById('seeMoreBtn')
 
 window.onload = function () {
   chrome.tabs.executeScript({
-    code: 'window.getSelection().toString();'
-  }, selection => {
-    bkg.console.log(selection)
-    document.getElementById("selection").textContent = selection[0]
+    code: 'window.getSelection().toString().trim();'
+  }, selectionArr => {
+    bkg.console.log(selectionArr)
+    const selection = selectionArr[0]
+
+    if (selection === '') {
+      trueBtn.style.display = 'none'
+      falseBtn.style.display = 'none'
+    }
+
+    selectionEl.textContent = selection
   })
 }
 
-document.getElementById('trueBtn').onclick = function() {
-  const belief = document.getElementById('selection').textContent
+trueBtn.onclick = function() {
+  const belief = selectionEl.textContent
 
   chrome.storage.sync.get('trueBeliefs', function(data) {
     const currentValue = data.trueBeliefs
@@ -24,8 +35,8 @@ document.getElementById('trueBtn').onclick = function() {
   })
 }
 
-document.getElementById('falseBtn').onclick = function() {
-  const belief = document.getElementById('selection').textContent
+falseBtn.onclick = function() {
+  const belief = selectionEl.textContent
 
   chrome.storage.sync.get('falseBeliefs', function(data) {
     const currentValue = data.falseBeliefs
@@ -39,7 +50,7 @@ document.getElementById('falseBtn').onclick = function() {
   })
 }
 
-document.getElementById('seeMoreBtn').onclick = function() {
+seeMoreBtn.onclick = function() {
   chrome.storage.sync.get(['trueBeliefs', 'falseBeliefs'], function(data) {
     bkg.console.log(data)
     bkg.console.log('True beliefs', data.trueBeliefs)
