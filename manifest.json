@@ -1,0 +1,25 @@
+{
+  "name": "Accountability Extension",
+  "version": "1.0",
+  "description": "Holding you accountable for your beliefs.",
+  "manifest_version": 2,
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      }
+    }
+  }
+}
