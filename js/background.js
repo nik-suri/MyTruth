@@ -4,7 +4,8 @@ chrome.runtime.onInstalled.addListener(() => {
   // instantiate values
   chrome.storage.sync.set({
     trueBeliefs: [],
-    falseBeliefs: []
+    falseBeliefs: [],
+    unsureBeliefs: []
   }, function() {
     console.log('initial belief values (empty) set.')
   })

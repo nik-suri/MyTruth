@@ -3,14 +3,18 @@
 
 <head>
     <title>The Popup</title>
+    <link href="css/font-awesome/fontawesome.min.css" rel="stylesheet">
+    <link href="css/font-awesome/solid.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
-    <div class='container-fluid'>
+    <div id='mainContent' class='container-fluid'>
         <div class='row'>
-            <div class='col' id='selection'></div>
+            <div class='col'>
+                <p class="font-weight-bold" id='selection'></p>
+            </div>
         </div>
         <div class='row'>
             <div class='col'>
@@ -19,12 +23,23 @@
             <div class='col'>
                 <button type="button" class="btn btn-danger btn-sm btn-block" id="falseBtn">False</button>
             </div>
+            <div class='col'>
+                <button type="button" class="btn btn-warning btn-sm btn-block" id="unsureBtn">Unsure</button>
+            </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <button type="button" class="btn btn-link" id="seeMoreBtn">Click here to see your beliefs</button>
             </div>
         </div>
+    </div>
+
+    <div id='saveSuccessContent' class='container-fluid'>
+        <i class="fas fa-check-circle fa-3x"></i>
+    </div>
+
+    <div id='beliefsContent' class='container-fluid'>
+        beliefs content
     </div>
 
     <script src="js/jquery-3.5.0.min.js"></script>
