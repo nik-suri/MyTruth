@@ -22,6 +22,10 @@ const falseBtn = document.getElementById('falseBtn')
 const unsureBtn = document.getElementById('unsureBtn')
 const seeMoreBtn = document.getElementById('seeMoreBtn')
 
+const trueList = document.getElementById('trueList')
+const falseList = document.getElementById('falseList')
+const unsureList = document.getElementById('unsureList')
+
 function setContentView(displaySetting) {
   switch (displaySetting) {
     case DisplaySetting.main:
@@ -100,5 +104,18 @@ seeMoreBtn.onclick = function () {
 
   chrome.storage.sync.get(Object.values(BeliefStatus), function (data) {
     bkg.console.log(data)
+    data[BeliefStatus.true].forEach(belief => {
+      const li = document.createElement('li')
+      li.className = 'list-group-item'
+      li.textContent = belief
+      trueList.appendChild(li)
+    })
+
+    data[BeliefStatus.false].forEach(belief => {
+      const li = document.createElement('li')
+      li.className = 'list-group-item'
+      li.textContent = belief
+      falseList.appendChild(li)
+    })
   })
 }
