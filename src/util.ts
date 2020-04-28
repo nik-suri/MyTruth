@@ -1,0 +1,1 @@
+export const bkg = chrome.extension.getBackgroundPage()
