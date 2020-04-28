@@ -1,6 +1,6 @@
 import { Button, Col, Row, Typography } from 'antd';
 import React from 'react';
-import { Display, BeliefStatus, bkg } from '../util';
+import { Display, BeliefStatus, SavedBelief, bkg } from '../util';
 
 const { Text } = Typography;
 
@@ -10,12 +10,19 @@ interface Props {
 }
 
 export default function Content({ selection, switchDisplay }: Props) {
-  function saveBelief(status: string): void {
-    chrome.storage.sync.get(status, data => {
-      const currentValue: string[] = data[status]
-      const newValue = currentValue.concat(selection)
 
-      chrome.storage.sync.set({ [status]: newValue }, () => {
+  function saveBelief(status: BeliefStatus): void {
+    chrome.storage.sync.get('beliefs', data => {
+      const currentValue: SavedBelief[] = data.beliefs
+
+      const newSavedBelief: SavedBelief = {
+        belief: selection,
+        status: status
+      }
+
+      const newValue = currentValue.concat(newSavedBelief)
+
+      chrome.storage.sync.set({ 'beliefs': newValue }, () => {
         bkg?.console.log('Value is set to ', newValue)
         switchDisplay(Display.SaveSuccess)
       })

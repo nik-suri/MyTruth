@@ -11,3 +11,8 @@ export enum BeliefStatus {
   False = 'false',
   Unsure = 'unsure'
 }
+
+export interface SavedBelief {
+  belief: string;
+  status: BeliefStatus;
+}

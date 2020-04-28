@@ -1,0 +1,24 @@
+.beliefDisplay {
+    padding: 10px;
+}
+
+.backBtn {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.beliefCard {
+    margin-bottom: 5px;
+}
+
+.beliefCard .trueTitle {
+    color: green;
+}
+
+.beliefCard .falseTitle {
+    color: red;
+}
+
+.beliefCard .unsureTitle {
+    color: gray;
+}

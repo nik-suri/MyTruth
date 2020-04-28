@@ -3,7 +3,7 @@ import Content from './components/Content'
 import Beliefs from './components/Beliefs'
 import SaveSuccess from './components/SaveSuccess'
 import { Display, bkg } from './util'
-import './Popup.css'
+import './css/Popup.css'
 
 export default function Popup() {
   const [display, setDisplay] = useState<Display>(Display.Main)

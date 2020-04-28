@@ -1,7 +1,5 @@
 interface IBeliefs {
-  true: string[],
-  false: string[],
-  unsure: string[]
+  beliefs: string[]
 }
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -9,9 +7,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
   // instantiate values
   const beliefs: IBeliefs = {
-    true: [],
-    false: [],
-    unsure: []
+    beliefs: []
   }
   
   chrome.storage.sync.set(beliefs, function() {

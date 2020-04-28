@@ -1,80 +1,61 @@
-import { Col, Row } from 'antd';
+import { Card } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import React, { useState, useEffect } from 'react';
-import { BeliefStatus, bkg, Display } from '../util';
+import { BeliefStatus, SavedBelief, bkg, Display } from '../util';
+import '../css/Beliefs.css'
 
 interface Props {
   switchDisplay: (newDisplay: Display) => void;
 }
 
 export default function Beliefs({ switchDisplay }: Props) {
-  const [trueBeliefs, setTrueBeliefs] = useState<string[]>([])
-  const [falseBeliefs, setFalseBeliefs] = useState<string[]>([])
-  const [unsureBeliefs, setUnsureBeliefs] = useState<string[]>([])
+  const [beliefs, setBeliefs] = useState<SavedBelief[]>([])
 
   useEffect(() => {
-    chrome.storage.sync.get([
-      BeliefStatus.True,
-      BeliefStatus.False, 
-      BeliefStatus.Unsure
-    ], data => {
+    chrome.storage.sync.get('beliefs', data => {
       bkg?.console.log(data)
-      setTrueBeliefs(data[BeliefStatus.True])
-      setFalseBeliefs(data[BeliefStatus.False])
-      setUnsureBeliefs(data[BeliefStatus.Unsure])
+      setBeliefs(data.beliefs)
     })
   }, [])
 
-  const trueListElements: JSX.Element[] = trueBeliefs.map((belief, i) => (
-    <div key={i}>
-      {belief}
-    </div>
-  ))
+  const beliefElements: JSX.Element[] = beliefs.map((belief, i) => {
+    let titleClass
+    switch (belief.status as BeliefStatus) {
+      case BeliefStatus.True:
+        titleClass = 'trueTitle'
+        break
+      case BeliefStatus.False:
+        titleClass = 'falseTitle'
+        break
+      case BeliefStatus.Unsure:
+        titleClass = 'unsureTitle'
+        break
+    }
 
-  const falseListElements: JSX.Element[] = falseBeliefs.map((belief, i) => (
-    <div key={i}>
-      {belief}
-    </div>
-  ))
-  const usureListElements: JSX.Element[] = unsureBeliefs.map((belief, i) => (
-    <div key={i}>
-      {belief}
-    </div>
-  ))
+    const titleEl = <p className={titleClass}>{belief.status}</p>
+
+    return (
+      <Card
+        className='beliefCard'
+        hoverable
+        size='small'
+        title={titleEl}
+        key={i}
+      >
+        <p>{belief.belief}</p>
+      </Card>
+    )
+  })
 
   return (
-    <>
-      <Row justify='space-between'>
-        <Col span={4}>
-          {trueListElements}
-        </Col>
-        <Col span={4}>
-          {falseListElements}
-        </Col>
-        <Col span={4}>
-          {usureListElements}
-        </Col>
-      </Row>
-    </>
+    <div className='beliefDisplay'>
+      <div
+        className='backBtn'
+        onClick={(e) => switchDisplay(Display.Main)}
+      >
+        <ArrowLeftOutlined />
+      </div>
+      {beliefElements}
+    </div>
   )
 }
-
-// seeMoreBtn.onclick = function () {
-//   setContentView(DisplaySetting.beliefs)
-
-//   chrome.storage.sync.get(Object.values(BeliefStatus), function (data) {
-//     bkg.console.log(data)
-//     data[BeliefStatus.true].forEach(belief => {
-//       const li = document.createElement('li')
-//       li.className = 'list-group-item'
-//       li.textContent = belief
-//       trueList.appendChild(li)
-//     })
-
-//     data[BeliefStatus.false].forEach(belief => {
-//       const li = document.createElement('li')
-//       li.className = 'list-group-item'
-//       li.textContent = belief
-//       falseList.appendChild(li)
-//     })
-//   })
-// }
