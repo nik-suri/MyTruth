@@ -1,5 +1,5 @@
 import { Button, Col, Row, Typography } from 'antd';
-import * as React from 'react';
+import React from 'react';
 import { Display, BeliefStatus, bkg } from '../util';
 
 const { Text } = Typography;

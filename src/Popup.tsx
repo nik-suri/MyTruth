@@ -1,13 +1,14 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import Content from './components/Content'
 import Beliefs from './components/Beliefs'
+import SaveSuccess from './components/SaveSuccess'
 import { Display, bkg } from './util'
 
 export default function Popup() {
-  const [display, setDisplay] = React.useState<Display>(Display.Main)
-  const [selection, setSelection] = React.useState('')
+  const [display, setDisplay] = useState<Display>(Display.Main)
+  const [selection, setSelection] = useState('')
 
-  React.useEffect(() => {
+  useEffect(() => {
     chrome.tabs.executeScript({
       code: 'window.getSelection().toString().trim();'
     }, selectionArr => {
@@ -31,14 +32,14 @@ export default function Popup() {
       )
       break
     case Display.SaveSuccess:
+      displayContent = <SaveSuccess />
+      break
+    case Display.Beliefs:
       displayContent = (
         <Beliefs 
           switchDisplay={switchDisplay}
         />
       )
-      break
-    case Display.Beliefs:
-      displayContent = <p>Beliefs</p>
       break
   }
 
