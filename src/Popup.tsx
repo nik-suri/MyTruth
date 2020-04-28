@@ -3,6 +3,7 @@ import Content from './components/Content'
 import Beliefs from './components/Beliefs'
 import SaveSuccess from './components/SaveSuccess'
 import { Display, bkg } from './util'
+import './Popup.css'
 
 export default function Popup() {
   const [display, setDisplay] = useState<Display>(Display.Main)
@@ -32,7 +33,7 @@ export default function Popup() {
       )
       break
     case Display.SaveSuccess:
-      displayContent = <SaveSuccess />
+      displayContent = <SaveSuccess switchDisplay={switchDisplay} />
       break
     case Display.Beliefs:
       displayContent = (

@@ -29,28 +29,28 @@ export default function Content({ selection, switchDisplay }: Props) {
       </Row>
       <Row justify='space-around'>
         <Col>
-          <Button
-            type='primary'
+          <div
+            className='themelabBtn'
             onClick={(e) => saveBelief(BeliefStatus.True)}
           >
             True
-          </Button>
+          </div>
         </Col>
         <Col>
-          <Button 
-            type='danger'
+          <div 
+            className='themelabBtn'
             onClick={(e) => saveBelief(BeliefStatus.False)}
           >
             False
-          </Button>
+          </div>
         </Col>
         <Col>
-          <Button 
-            type='primary'
+          <div 
+            className='themelabBtn'
             onClick={(e) => saveBelief(BeliefStatus.Unsure)}
           >
             Unsure
-          </Button>
+          </div>
         </Col>
       </Row>
     </>
