@@ -43,9 +43,5 @@ export default function Popup() {
       break
   }
 
-  return (
-    <>
-      {displayContent}
-    </>
-  )
+  return displayContent
 }
