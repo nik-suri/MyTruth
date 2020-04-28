@@ -1,6 +1,7 @@
-import { Button, Col, Row, Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import React from 'react';
 import { Display, BeliefStatus, SavedBelief, bkg } from '../util';
+import '../css/Content.css';
 
 const { Text } = Typography;
 
@@ -31,13 +32,13 @@ export default function Content({ selection, switchDisplay }: Props) {
 
   const selectionSection: JSX.Element | null = selection === '' ? null : (
     <>
-      <Row>
+      <Row id='selectionRow'>
         <Text strong>{selection}</Text>
       </Row>
       <Row justify='space-around'>
         <Col>
           <div
-            className='themelabBtn'
+            className='customBtn green'
             onClick={(e) => saveBelief(BeliefStatus.True)}
           >
             True
@@ -45,7 +46,7 @@ export default function Content({ selection, switchDisplay }: Props) {
         </Col>
         <Col>
           <div 
-            className='themelabBtn'
+            className='customBtn red'
             onClick={(e) => saveBelief(BeliefStatus.False)}
           >
             False
@@ -53,7 +54,7 @@ export default function Content({ selection, switchDisplay }: Props) {
         </Col>
         <Col>
           <div 
-            className='themelabBtn'
+            className='customBtn yellow'
             onClick={(e) => saveBelief(BeliefStatus.Unsure)}
           >
             Unsure
@@ -64,14 +65,15 @@ export default function Content({ selection, switchDisplay }: Props) {
   )
 
   return (
-    <div>
+    <div className='contentWrapper'>
       {selectionSection}
-      <Button
-        type="link"
+      <div
+        className='customBtn bluePop'
+        id='seeBeliefsBtn'
         onClick={(e) => switchDisplay(Display.Beliefs)}
       >
-        Click here to see your beliefs
-      </Button>
+        See my Beliefs
+      </div>
     </div>
   )
 }
