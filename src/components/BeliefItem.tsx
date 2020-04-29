@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import React from 'react';
 import '../css/BeliefItem.css';
-import { BeliefStatus, SavedBelief } from '../util';
+import { BeliefStatus, SavedBelief, bkg } from '../util';
 
 interface ExtraContentProps {
   innerElements: JSX.Element[]
@@ -45,11 +45,11 @@ export default function BeliefItem({ belief, index, updateBelief }: Props) {
     </div>
   )
 
-  let titleClass: string
+  let titleClass = 'beliefCardHeaderContent'
   let extraContent: JSX.Element
   switch (belief.status as BeliefStatus) {
     case BeliefStatus.True:
-      titleClass = 'trueTitle'
+      titleClass += ' trueTitle'
       extraContent = (
         <BeliefItemExtraContent
           innerElements={[falseSmallBtn, unsureSmallBtn]}
@@ -57,7 +57,7 @@ export default function BeliefItem({ belief, index, updateBelief }: Props) {
       )
       break
     case BeliefStatus.False:
-      titleClass = 'falseTitle'
+      titleClass += ' falseTitle'
       extraContent = (
         <BeliefItemExtraContent
           innerElements={[trueSmallBtn, unsureSmallBtn]}
@@ -65,7 +65,7 @@ export default function BeliefItem({ belief, index, updateBelief }: Props) {
       )
       break
     case BeliefStatus.Unsure:
-      titleClass = 'unsureTitle'
+      titleClass += ' unsureTitle'
       extraContent = (
         <BeliefItemExtraContent
           innerElements={[trueSmallBtn, falseSmallBtn]}
@@ -74,7 +74,31 @@ export default function BeliefItem({ belief, index, updateBelief }: Props) {
       break
   }
 
-  const titleEl = <p className={titleClass}>{belief.status}</p>
+  // show proper saved/updated time
+  let timeDisplay: string;
+  if (belief.updatedTime !== null) {
+    const updatedTimeDate = new Date(belief.updatedTime)
+    timeDisplay = `Updated ${updatedTimeDate.toLocaleString()}`
+  } else {
+    const savedTimeDate = new Date(belief.savedTime)
+    timeDisplay = `Saved ${savedTimeDate.toLocaleString()}`
+  }
+
+  const titleEl = (
+    <>
+      <div>
+        <p className={titleClass}>{belief.status}</p>
+      </div>
+      <div>
+        <p 
+          className='beliefCardHeaderContent' 
+          id='beliefCardHeaderTimeDisplay'
+        >
+          {timeDisplay}
+        </p>
+      </div>
+    </>
+  )
 
   return (
     <Card

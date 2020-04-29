@@ -14,6 +14,14 @@
     color: var(--unsure-col)
 }
 
+.beliefCardHeaderContent {
+    margin-bottom: 0px;
+}
+
+#beliefCardHeaderTimeDisplay {
+    color: rgb(150, 149, 149);
+}
+
 .beliefCardExtraContent {
     display: inline-flex;
 }

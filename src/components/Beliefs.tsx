@@ -21,7 +21,9 @@ export default function Beliefs({ switchDisplay }: Props) {
 
   function updateBelief(atIndex: number, newStatus: BeliefStatus): void {
     const newBeliefs = cloneDeep(beliefs)
-    newBeliefs[atIndex].status = newStatus
+    const updatingBelief = newBeliefs[atIndex]
+    updatingBelief.status = newStatus
+    updatingBelief.updatedTime = Date.now()
 
     chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
       bkg?.console.log('Updated beliefs in storage.')

@@ -15,6 +15,6 @@ export enum BeliefStatus {
 export interface SavedBelief {
   belief: string;
   status: BeliefStatus;
-  savedTime: Date;
-  updatedTime: Date | null;
+  savedTime: number;
+  updatedTime: number | null;
 }

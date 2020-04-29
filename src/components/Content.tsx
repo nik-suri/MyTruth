@@ -19,7 +19,7 @@ export default function Content({ selection, switchDisplay }: Props) {
       const newSavedBelief: SavedBelief = {
         belief: selection,
         status: status,
-        savedTime: new Date(),
+        savedTime: Date.now(),
         updatedTime: null
       }
 
