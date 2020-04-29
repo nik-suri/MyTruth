@@ -26,6 +26,11 @@
     transition: box-shadow 0.2s linear;
 }
 
+.customBtn.small {
+    padding: 0px 10px;
+    line-height: 32px;
+}
+
 .customBtn.green {
     background: var(--true-col)
 }

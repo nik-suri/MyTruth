@@ -6,6 +6,7 @@ import { Display, bkg } from './util'
 import './css/Popup.css'
 
 export default function Popup() {
+  const [isLoading, setIsLoading] = useState(true)
   const [display, setDisplay] = useState<Display>(Display.Main)
   const [selection, setSelection] = useState('')
 
@@ -15,6 +16,7 @@ export default function Popup() {
     }, selectionArr => {
       bkg?.console.log(selectionArr)
       setSelection(selectionArr[0])
+      setIsLoading(false)
     })
   }, [])
 
@@ -44,5 +46,5 @@ export default function Popup() {
       break
   }
 
-  return displayContent
+  return isLoading ? <></> : displayContent
 }

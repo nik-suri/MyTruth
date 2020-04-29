@@ -1,7 +1,7 @@
-import { Card } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { PageHeader } from 'antd';
 import React, { useState, useEffect } from 'react';
-import { BeliefStatus, SavedBelief, bkg, Display } from '../util';
+import { SavedBelief, bkg, Display } from '../util';
+import BeliefItem from './BeliefItem';
 import '../css/Beliefs.css'
 
 interface Props {
@@ -18,43 +18,18 @@ export default function Beliefs({ switchDisplay }: Props) {
     })
   }, [])
 
-  const beliefElements: JSX.Element[] = beliefs.map((belief, i) => {
-    let titleClass
-    switch (belief.status as BeliefStatus) {
-      case BeliefStatus.True:
-        titleClass = 'trueTitle'
-        break
-      case BeliefStatus.False:
-        titleClass = 'falseTitle'
-        break
-      case BeliefStatus.Unsure:
-        titleClass = 'unsureTitle'
-        break
-    }
 
-    const titleEl = <p className={titleClass}>{belief.status}</p>
-
-    return (
-      <Card
-        className='beliefCard'
-        hoverable
-        size='small'
-        title={titleEl}
-        key={i}
-      >
-        <p>{belief.belief}</p>
-      </Card>
-    )
-  })
+  const beliefElements: JSX.Element[] = beliefs.map((belief, i) => (
+    <BeliefItem belief={belief} index={i} key={i} />
+  ))
 
   return (
     <div className='beliefDisplay'>
-      <div
-        className='backBtn'
-        onClick={(e) => switchDisplay(Display.Main)}
-      >
-        <ArrowLeftOutlined />
-      </div>
+      <PageHeader
+        className='beliefsHeader'
+        title='My Beliefs'
+        onBack={() => switchDisplay(Display.Main)}
+      />
       {beliefElements}
     </div>
   )

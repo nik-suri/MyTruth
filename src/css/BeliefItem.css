@@ -1,0 +1,24 @@
+.beliefCard {
+    margin-bottom: 5px;
+}
+
+.beliefCard .trueTitle {
+    color: var(--true-col)
+}
+
+.beliefCard .falseTitle {
+    color: var(--false-col)
+}
+
+.beliefCard .unsureTitle {
+    color: var(--unsure-col)
+}
+
+.beliefCardExtraContent {
+    display: inline-flex;
+}
+
+.beliefCardExtraBtn {
+    margin-right: 5px;
+    margin-left: 5px;
+}
