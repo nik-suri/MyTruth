@@ -1,8 +1,9 @@
 import { PageHeader } from 'antd';
 import React, { useState, useEffect } from 'react';
-import { SavedBelief, bkg, Display } from '../util';
+import { SavedBelief, bkg, Display, BeliefStatus } from '../util';
 import BeliefItem from './BeliefItem';
-import '../css/Beliefs.css'
+import '../css/Beliefs.css';
+import cloneDeep from 'lodash/cloneDeep'
 
 interface Props {
   switchDisplay: (newDisplay: Display) => void;
@@ -18,9 +19,19 @@ export default function Beliefs({ switchDisplay }: Props) {
     })
   }, [])
 
+  function updateBelief(atIndex: number, newStatus: BeliefStatus): void {
+    const newBeliefs = cloneDeep(beliefs)
+    newBeliefs[atIndex].status = newStatus
+    setBeliefs(newBeliefs)
+  }
 
   const beliefElements: JSX.Element[] = beliefs.map((belief, i) => (
-    <BeliefItem belief={belief} index={i} key={i} />
+    <BeliefItem
+      belief={belief}
+      index={i}
+      updateBelief={updateBelief}
+      key={i} 
+    />
   ))
 
   return (
