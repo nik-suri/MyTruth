@@ -1,8 +1,42 @@
+@import './Popup.css';
+
+.contentHeader {
+    color: white;
+    background: var(--primary-col);
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.contentHeader:hover {
+    background: var(--primary-col-dark)
+}
+
+#contentHeaderText {
+    margin-bottom: 0px;
+}
+
+.contentHeaderBadge {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#contentHeaderArrow {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .contentWrapper {
     padding: 5px;
 }
 
-#seeBeliefsBtn {
+.contentNavBtn {
     margin-top: 8px;
     text-align: center;
 }
