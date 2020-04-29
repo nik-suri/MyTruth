@@ -18,7 +18,9 @@ export default function Content({ selection, switchDisplay }: Props) {
 
       const newSavedBelief: SavedBelief = {
         belief: selection,
-        status: status
+        status: status,
+        savedTime: new Date(),
+        updatedTime: null
       }
 
       const newValue = currentValue.concat(newSavedBelief)
@@ -34,7 +36,7 @@ export default function Content({ selection, switchDisplay }: Props) {
     <Empty
       description={
         <span>
-          Highlight some text with your mouse and press ctrl+shift+s (cmd+shift+s if mac)!
+          Highlight some text and press ctrl+shift+s (cmd+shift+s if mac)!
         </span>
       }
     />
