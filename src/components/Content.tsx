@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from 'antd';
+import { Col, Row, Typography, Empty } from 'antd';
 import React from 'react';
 import { Display, BeliefStatus, SavedBelief, bkg } from '../util';
 import '../css/Content.css';
@@ -30,7 +30,15 @@ export default function Content({ selection, switchDisplay }: Props) {
     })
   }
 
-  const selectionSection: JSX.Element | null = selection === '' ? null : (
+  const selectionSection: JSX.Element = selection === '' ? (
+    <Empty
+      description={
+        <span>
+          Highlight some text with your mouse and press ctrl+shift+s (cmd+shift+s if mac)!
+        </span>
+      }
+    />
+  ) : (
     <>
       <Row id='selectionRow'>
         <Text strong>{selection}</Text>
@@ -42,23 +50,23 @@ export default function Content({ selection, switchDisplay }: Props) {
             onClick={(e) => saveBelief(BeliefStatus.True)}
           >
             True
-          </div>
+        </div>
         </Col>
         <Col>
-          <div 
+          <div
             className='customBtn red'
             onClick={(e) => saveBelief(BeliefStatus.False)}
           >
             False
-          </div>
+        </div>
         </Col>
         <Col>
-          <div 
+          <div
             className='customBtn yellow'
             onClick={(e) => saveBelief(BeliefStatus.Unsure)}
           >
             Unsure
-          </div>
+        </div>
         </Col>
       </Row>
     </>
