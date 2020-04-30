@@ -1,7 +1,7 @@
 {
-  "name": "Accountability Extension",
+  "name": "MyTruth",
   "version": "1.0",
-  "description": "Holding you accountable for your beliefs.",
+  "description": "Track your beliefs and hold yourself accountable.",
   "manifest_version": 2,
   "permissions": [
     "storage",
