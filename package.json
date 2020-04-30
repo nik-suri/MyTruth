@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently --kill-others \"npm:compile:watch\" \"npm:parcel:watch\"",
-    "compile:watch": "tsc -p . --noEmit --watch",
+    "compile:watch": "eslint --ext ts,tsx src && tsc -p . --noEmit --watch --preserveWatchOutput",
     "parcel:watch": "parcel watch --no-hmr src/background.ts src/popup.html",
     "build": "parcel build src/background.ts src/popup.html",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -35,8 +35,12 @@
     "@types/lodash": "^4.14.150",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
     "babel-plugin-import": "^1.13.0",
     "concurrently": "^5.2.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.3.1",
     "typescript": "^3.8.3"

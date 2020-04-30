@@ -10,7 +10,7 @@ interface Props {
   setDisplay: (newDisplay: Display) => void;
 }
 
-export default function StaleBeliefs({ staleBeliefs, updateBelief, setDisplay }: Props) {
+export default function StaleBeliefs({ staleBeliefs, updateBelief, setDisplay }: Props): JSX.Element {
   const beliefElements: JSX.Element[] = staleBeliefs.map((wrappedStaleBelief, i) => (
     <BeliefItem
       staleItem
@@ -19,16 +19,16 @@ export default function StaleBeliefs({ staleBeliefs, updateBelief, setDisplay }:
       updateBelief={updateBelief}
       key={i}
     />
-  ))
+  ));
 
   return (
     <div className='beliefDisplay'>
       <PageHeader
         className='beliefsHeader'
         title='My Old Beliefs'
-        onBack={() => setDisplay(Display.Main)}
+        onBack={(): void => setDisplay(Display.Main)}
       />
       {beliefElements}
     </div>
-  )
+  );
 }

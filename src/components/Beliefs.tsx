@@ -10,7 +10,7 @@ interface Props {
   setDisplay: (newDisplay: Display) => void;
 }
 
-export default function Beliefs({ beliefs, updateBelief, setDisplay }: Props) {
+export default function Beliefs({ beliefs, updateBelief, setDisplay }: Props): JSX.Element {
 
   const beliefElements: JSX.Element[] = beliefs.map((belief, i) => (
     <BeliefItem
@@ -19,16 +19,16 @@ export default function Beliefs({ beliefs, updateBelief, setDisplay }: Props) {
       updateBelief={updateBelief}
       key={i} 
     />
-  ))
+  ));
 
   return (
     <div className='beliefDisplay'>
       <PageHeader
         className='beliefsHeader'
         title='My Beliefs'
-        onBack={() => setDisplay(Display.Main)}
+        onBack={(): void => setDisplay(Display.Main)}
       />
       {beliefElements}
     </div>
-  )
+  );
 }

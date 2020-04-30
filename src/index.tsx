@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Popup from './Popup'
+import Popup from './Popup';
 
 ReactDOM.render(
   <React.StrictMode>

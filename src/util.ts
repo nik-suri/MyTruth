@@ -1,4 +1,4 @@
-export const bkg = chrome.extension.getBackgroundPage()
+export const bkg = chrome.extension.getBackgroundPage();
 
 export enum Display {
   Main,

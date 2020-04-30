@@ -11,31 +11,31 @@ interface Props {
   setDisplay: (newDisplay: Display) => void;
 }
 
-export default function Content({ selection, setBeliefs, setDisplay }: Props) {
+export default function Content({ selection, setBeliefs, setDisplay }: Props): JSX.Element {
 
   function saveBelief(status: BeliefStatus): void {
     chrome.storage.sync.get('beliefs', data => {
-      const currentBeliefs: SavedBelief[] = data.beliefs
+      const currentBeliefs: SavedBelief[] = data.beliefs;
 
       // const saveTime = Date.now()
-      const saveTime = Date.now() - 1814400000 // for testing
+      const saveTime = Date.now() - 1814400000; // for testing
 
       const newSavedBelief: SavedBelief = {
         belief: selection,
         status: status,
         savedTime: saveTime,
         updatedTime: null
-      }
+      };
 
-      const newBeliefs = currentBeliefs.concat(newSavedBelief)
+      const newBeliefs = currentBeliefs.concat(newSavedBelief);
 
       chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
-        bkg?.console.log('Value is set to ', newBeliefs)
-      })
+        bkg?.console.log('Value is set to ', newBeliefs);
+      });
 
-      setBeliefs(newBeliefs)
-      setDisplay(Display.SaveSuccess)
-    })
+      setBeliefs(newBeliefs);
+      setDisplay(Display.SaveSuccess);
+    });
   }
 
   const selectionSection: JSX.Element = selection === ''
@@ -44,7 +44,7 @@ export default function Content({ selection, setBeliefs, setDisplay }: Props) {
         description={
           <span>
             Highlight some text and press ctrl+shift+s (cmd+shift+s if mac)!
-        </span>
+          </span>
         }
       />
     )
@@ -57,40 +57,40 @@ export default function Content({ selection, setBeliefs, setDisplay }: Props) {
           <Col>
             <div
               className='customBtn green'
-              onClick={(e) => saveBelief(BeliefStatus.True)}
+              onClick={(): void => saveBelief(BeliefStatus.True)}
             >
               True
-        </div>
+            </div>
           </Col>
           <Col>
             <div
               className='customBtn red'
-              onClick={(e) => saveBelief(BeliefStatus.False)}
+              onClick={(): void => saveBelief(BeliefStatus.False)}
             >
               False
-        </div>
+            </div>
           </Col>
           <Col>
             <div
               className='customBtn yellow'
-              onClick={(e) => saveBelief(BeliefStatus.Unsure)}
+              onClick={(): void => saveBelief(BeliefStatus.Unsure)}
             >
               Unsure
             </div>
           </Col>
         </Row>
       </>
-    )
+    );
 
   return (
     <div className='contentWrapper'>
       {selectionSection}
       <div
         className='customBtn bluePop contentNavBtn'
-        onClick={(e) => setDisplay(Display.Beliefs)}
+        onClick={(): void => setDisplay(Display.Beliefs)}
       >
         See my Beliefs
       </div>
     </div>
-  )
+  );
 }
