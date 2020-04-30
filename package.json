@@ -9,6 +9,7 @@
     "parcel:watch": "parcel watch --no-hmr src/background.ts src/popup.html",
     "prebuild": "npm run clean",
     "build": "eslint --ext ts,tsx src && tsc -p . --noEmit && parcel build src/background.ts src/popup.html",
+    "build:upload": "npm run build && zip -vr dist.zip ./dist",
     "clean": "rimraf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
