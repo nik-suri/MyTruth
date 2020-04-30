@@ -1,23 +1,23 @@
 import { PageHeader } from 'antd';
 import React from 'react';
 import '../css/Beliefs.css';
-import { BeliefStatus, Display, SavedBelief } from '../util';
+import { BeliefStatus, Display, WrappedStaleBelief } from '../util';
 import BeliefItem from './BeliefItem';
 
 interface Props {
-  beliefs: SavedBelief[];
+  staleBeliefs: WrappedStaleBelief[];
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void;
   setDisplay: (newDisplay: Display) => void;
 }
 
-export default function Beliefs({ beliefs, updateBelief, setDisplay }: Props) {
-
-  const beliefElements: JSX.Element[] = beliefs.map((belief, i) => (
+export default function StaleBeliefs({ staleBeliefs, updateBelief, setDisplay }: Props) {
+  const beliefElements: JSX.Element[] = staleBeliefs.map((wrappedStaleBelief, i) => (
     <BeliefItem
-      belief={belief}
-      index={i}
+      staleItem
+      belief={wrappedStaleBelief.savedBelief}
+      index={wrappedStaleBelief.savedIndex}
       updateBelief={updateBelief}
-      key={i} 
+      key={i}
     />
   ))
 
@@ -25,7 +25,7 @@ export default function Beliefs({ beliefs, updateBelief, setDisplay }: Props) {
     <div className='beliefDisplay'>
       <PageHeader
         className='beliefsHeader'
-        title='My Beliefs'
+        title='My Old Beliefs'
         onBack={() => setDisplay(Display.Main)}
       />
       {beliefElements}

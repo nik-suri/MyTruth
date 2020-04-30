@@ -3,7 +3,8 @@ export const bkg = chrome.extension.getBackgroundPage()
 export enum Display {
   Main,
   SaveSuccess,
-  Beliefs
+  Beliefs,
+  StaleBeliefs
 }
 
 export enum BeliefStatus {
@@ -17,4 +18,9 @@ export interface SavedBelief {
   status: BeliefStatus;
   savedTime: number;
   updatedTime: number | null;
+}
+
+export interface WrappedStaleBelief {
+  savedBelief: SavedBelief;
+  savedIndex: number;
 }

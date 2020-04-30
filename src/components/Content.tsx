@@ -1,39 +1,21 @@
-import { Badge, Col, Row, Typography, Empty } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
-import React, { useState, useEffect } from 'react';
-import { Display, BeliefStatus, SavedBelief, bkg } from '../util';
+import { Col, Empty, Row, Typography } from 'antd';
+import React from 'react';
 import '../css/Content.css';
+import { BeliefStatus, bkg, Display, SavedBelief } from '../util';
 
 const { Text } = Typography;
 
 interface Props {
   selection: string;
-  switchDisplay: (newDisplay: Display) => void;
+  setBeliefs: (newBeliefs: SavedBelief[]) => void;
+  setDisplay: (newDisplay: Display) => void;
 }
 
-export default function Content({ selection, switchDisplay }: Props) {
-  const [staleBeliefs, setStaleBeliefs] = useState<SavedBelief[]>([])
-
-  useEffect(() => {
-    chrome.storage.sync.get('beliefs', data => {
-      const savedBeliefs: SavedBelief[] = data.beliefs
-      const currentTime = Date.now()
-      const staleTimeDiff = 1814400000 // milliseconds representing 3 weeks
-      const newStaleBeliefs = savedBeliefs.reduce((acc: SavedBelief[], belief) => {
-        const beliefTimeRef = belief.updatedTime ?? belief.savedTime
-        if (currentTime - beliefTimeRef >= staleTimeDiff) {
-          return acc.concat(belief)
-        }
-        return acc
-      }, [])
-
-      setStaleBeliefs(newStaleBeliefs)
-    })
-  }, [])
+export default function Content({ selection, setBeliefs, setDisplay }: Props) {
 
   function saveBelief(status: BeliefStatus): void {
     chrome.storage.sync.get('beliefs', data => {
-      const currentValue: SavedBelief[] = data.beliefs
+      const currentBeliefs: SavedBelief[] = data.beliefs
 
       // const saveTime = Date.now()
       const saveTime = Date.now() - 1814400000 // for testing
@@ -45,12 +27,14 @@ export default function Content({ selection, switchDisplay }: Props) {
         updatedTime: null
       }
 
-      const newValue = currentValue.concat(newSavedBelief)
+      const newBeliefs = currentBeliefs.concat(newSavedBelief)
 
-      chrome.storage.sync.set({ 'beliefs': newValue }, () => {
-        bkg?.console.log('Value is set to ', newValue)
-        switchDisplay(Display.SaveSuccess)
+      chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
+        bkg?.console.log('Value is set to ', newBeliefs)
       })
+
+      setBeliefs(newBeliefs)
+      setDisplay(Display.SaveSuccess)
     })
   }
 
@@ -92,41 +76,21 @@ export default function Content({ selection, switchDisplay }: Props) {
               onClick={(e) => saveBelief(BeliefStatus.Unsure)}
             >
               Unsure
-        </div>
+            </div>
           </Col>
         </Row>
       </>
     )
 
-  const staleBeliefsNotif: JSX.Element | null = staleBeliefs.length === 0
-    ? null
-    : (
-      <div
-        className='contentHeader'
-        onClick={(e) => bkg?.console.log('click')}
-      >
-        <p id='contentHeaderText'>Old beliefs - Update them now!</p>
-        <Badge
-          className='contentHeaderBadge'
-          count={staleBeliefs.length}
-          overflowCount={20}
-        />
-        <RightOutlined id='contentHeaderArrow' />
-      </div>
-    )
-
   return (
-    <>
-      {staleBeliefsNotif}
-      <div className='contentWrapper'>
-        {selectionSection}
-        <div
-          className='customBtn bluePop contentNavBtn'
-          onClick={(e) => switchDisplay(Display.Beliefs)}
-        >
-          See my Beliefs
+    <div className='contentWrapper'>
+      {selectionSection}
+      <div
+        className='customBtn bluePop contentNavBtn'
+        onClick={(e) => setDisplay(Display.Beliefs)}
+      >
+        See my Beliefs
       </div>
-      </div>
-    </>
+    </div>
   )
 }

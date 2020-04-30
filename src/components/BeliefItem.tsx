@@ -14,10 +14,26 @@ function BeliefItemExtraContent({ innerElements }: ExtraContentProps) {
 interface Props {
   belief: SavedBelief;
   index: number;
+  staleItem?: boolean;
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void
 }
 
-export default function BeliefItem({ belief, index, updateBelief }: Props) {
+export default function BeliefItem({
+  belief,
+  index,
+  staleItem = false,
+  updateBelief
+}: Props) {
+
+  const staleBeliefBtn: JSX.Element | null = !staleItem ? null : (
+    <div
+      className='customBtn blue staleBeliefBtn'
+      onClick={(e) => updateBelief(index, belief.status)}
+    >
+      Keep this Belief
+    </div>
+  )
+
   const trueSmallBtn = (
     <div
       className='customBtn green small beliefCardExtraBtn'
@@ -86,12 +102,13 @@ export default function BeliefItem({ belief, index, updateBelief }: Props) {
 
   const titleEl = (
     <>
-      <div>
+      <div className='beliefCardHeaderContainer'>
         <p className={titleClass}>{belief.status}</p>
+        {staleBeliefBtn}
       </div>
       <div>
-        <p 
-          className='beliefCardHeaderContent' 
+        <p
+          className='beliefCardHeaderContent'
           id='beliefCardHeaderTimeDisplay'
         >
           {timeDisplay}

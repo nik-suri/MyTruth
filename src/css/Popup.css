@@ -33,6 +33,14 @@
     line-height: 32px;
 }
 
+.customBtn.blue {
+    background: var(--primary-col)
+}
+
+.customBtn.blue:hover {
+    background: var(--primary-col-dark)
+}
+
 .customBtn.green {
     background: var(--true-col)
 }
@@ -67,4 +75,36 @@
     box-shadow: inset 0 -3px 0 rgba(31,45,61,.15);
     background: var(--primary-col-dark);
     color: white;
+}
+
+.notifBanner {
+    color: white;
+    background: var(--primary-col);
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.notifBanner:hover {
+    background: var(--primary-col-dark)
+}
+
+#notifBannerText {
+    margin-bottom: 0px;
+}
+
+.notifBannerBadge {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#notifBannerArrow {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-right: 10px;
 }

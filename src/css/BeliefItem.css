@@ -14,6 +14,10 @@
     color: var(--unsure-col)
 }
 
+.beliefCardHeaderContainer {
+    display: flex;
+}
+
 .beliefCardHeaderContent {
     margin-bottom: 0px;
 }
@@ -30,4 +34,14 @@
 .beliefCardExtraBtn {
     margin-right: 5px;
     margin-left: 5px;
+}
+
+.customBtn.staleBeliefBtn {
+    line-height: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    margin-left: 5px;
+    font-weight: 500;
+    font-size: 12px;
 }
