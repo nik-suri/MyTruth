@@ -1,6 +1,6 @@
 {
   "name": "MyTruth",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Track your beliefs and hold yourself accountable.",
   "manifest_version": 2,
   "permissions": [
