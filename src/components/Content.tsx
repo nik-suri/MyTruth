@@ -17,8 +17,8 @@ export default function Content({ selection, setBeliefs, setDisplay }: Props): J
     chrome.storage.sync.get('beliefs', data => {
       const currentBeliefs: SavedBelief[] = data.beliefs;
 
-      // const saveTime = Date.now()
-      const saveTime = Date.now() - 1814400000; // for testing
+      const saveTime = Date.now();
+      // const saveTime = Date.now() - 1814400000; // for testing
 
       const newSavedBelief: SavedBelief = {
         belief: selection,
