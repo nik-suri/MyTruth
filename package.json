@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prestart": "npm run clean",
     "start": "concurrently --kill-others \"npm:compile:watch\" \"npm:parcel:watch\"",
     "compile:watch": "eslint --ext ts,tsx src && tsc -p . --noEmit --watch --preserveWatchOutput",
     "parcel:watch": "parcel watch --no-hmr src/background.ts src/popup.html",
