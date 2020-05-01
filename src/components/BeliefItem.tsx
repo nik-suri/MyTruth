@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import React from 'react';
 import '../css/BeliefItem.css';
-import { BeliefStatus, SavedBelief } from '../util';
+import { BeliefStatus, SavedBelief, Display } from '../util';
 
 interface ExtraContentProps {
   innerElements: JSX.Element[];
@@ -16,14 +16,23 @@ interface Props {
   index: number;
   staleItem?: boolean;
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void;
+  setDetailedBelief: (detailedBelief: SavedBelief) => void;
+  setDisplay: (newDisplay: Display) => void;
 }
 
 export default function BeliefItem({
   belief,
   index,
   staleItem = false,
-  updateBelief
+  updateBelief,
+  setDetailedBelief,
+  setDisplay
 }: Props): JSX.Element {
+
+  function switchToDetailedBelief(): void {
+    setDetailedBelief(belief);
+    setDisplay(Display.BeliefDetail);
+  }
 
   const staleBeliefBtn: JSX.Element | null = !staleItem ? null : (
     <div
@@ -124,6 +133,7 @@ export default function BeliefItem({
       size='small'
       title={titleEl}
       extra={extraContent}
+      onClick={(): void => switchToDetailedBelief()}
     >
       <p>{belief.belief}</p>
     </Card>

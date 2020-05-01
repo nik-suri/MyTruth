@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Beliefs from './components/Beliefs';
 import Content from './components/Content';
 import SaveSuccess from './components/SaveSuccess';
-import StaleBeliefs from './components/StaleBeliefs';
+import BeliefDetail from './components/BeliefDetail';
 import './css/Popup.css';
 import { BeliefStatus, bkg, Display, SavedBelief, WrappedStaleBelief } from './util';
 
@@ -14,6 +14,7 @@ export default function Popup(): JSX.Element {
   const [display, setDisplay] = useState<Display>(Display.Main);
   const [selection, setSelection] = useState('');
   const [beliefs, setBeliefs] = useState<SavedBelief[]>([]);
+  const [detailedBelief, setDetailedBelief] = useState<SavedBelief | null>(null);
 
   useEffect(() => {
     chrome.tabs.executeScript({
@@ -29,6 +30,34 @@ export default function Popup(): JSX.Element {
       setBeliefs(savedBeliefs);
     });
   }, []);
+
+  function saveBelief(belief: string, status: BeliefStatus): void {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
+      const url = tabs[0].url;
+
+      const currentBeliefs = cloneDeep(beliefs);
+
+      const saveTime = Date.now();
+      // const saveTime = Date.now() - 1814400000; // for testing
+
+      const newSavedBelief: SavedBelief = {
+        belief: belief,
+        status: status,
+        savedTime: saveTime,
+        updatedTime: null,
+        beliefURL: url
+      };
+
+      const newBeliefs = currentBeliefs.concat(newSavedBelief);
+
+      chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
+        bkg?.console.log('Value is set to ', newBeliefs);
+      });
+
+      setBeliefs(newBeliefs);
+      setDisplay(Display.SaveSuccess);
+    });
+  }
 
   function updateBelief(atIndex: number, newStatus: BeliefStatus): void {
     const newBeliefs = cloneDeep(beliefs);
@@ -86,7 +115,7 @@ export default function Popup(): JSX.Element {
         {staleBeliefsNotif}
         <Content
           selection={selection}
-          setBeliefs={setBeliefs}
+          saveBelief={saveBelief}
           setDisplay={setDisplay}
         />
       </>
@@ -105,8 +134,10 @@ export default function Popup(): JSX.Element {
       <>
         {staleBeliefsNotif}
         <Beliefs
+          title={'My Beliefs'}
           beliefs={beliefs}
           updateBelief={updateBelief}
+          setDetailedBelief={setDetailedBelief}
           setDisplay={setDisplay}
         />
       </>
@@ -114,10 +145,19 @@ export default function Popup(): JSX.Element {
     break;
   case Display.StaleBeliefs:
     displayContent = (
-      <StaleBeliefs
-        staleBeliefs={staleBeliefs}
+      <Beliefs
+        title={'My Old Beliefs'}
+        beliefs={staleBeliefs}
         updateBelief={updateBelief}
+        setDetailedBelief={setDetailedBelief}
         setDisplay={setDisplay}
+      />
+    );
+    break;
+  case Display.BeliefDetail:
+    displayContent = (
+      <BeliefDetail
+        belief={detailedBelief}
       />
     );
     break;

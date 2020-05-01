@@ -4,7 +4,8 @@ export enum Display {
   Main,
   SaveSuccess,
   Beliefs,
-  StaleBeliefs
+  StaleBeliefs,
+  BeliefDetail
 }
 
 export enum BeliefStatus {
@@ -18,8 +19,11 @@ export interface SavedBelief {
   status: BeliefStatus;
   savedTime: number;
   updatedTime: number | null;
+  beliefURL: string | undefined;
 }
 
+// interface to pass a list of stale beliefs to a child component
+// the belief is wrapped with its original index in the un-shortened list
 export interface WrappedStaleBelief {
   savedBelief: SavedBelief;
   savedIndex: number;

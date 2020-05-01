@@ -6,10 +6,13 @@
   "scripts": {
     "prestart": "npm run clean",
     "start": "concurrently --kill-others \"npm:compile:watch\" \"npm:parcel:watch\"",
-    "compile:watch": "eslint --ext ts,tsx src && tsc -p . --noEmit --watch --preserveWatchOutput",
+    "lint": "eslint --ext ts,tsx src",
+    "compile": "tsc -p . --noEmit",
+    "compile:watch": "tsc -p . --noEmit --watch",
+    "parcel": "parcel build src/background.ts src/popup.html",
     "parcel:watch": "parcel watch --no-hmr src/background.ts src/popup.html",
     "prebuild": "npm run clean",
-    "build": "eslint --ext ts,tsx src && tsc -p . --noEmit && parcel build src/background.ts src/popup.html",
+    "build": "npm run lint && npm run compile && npm run parcel",
     "build:upload": "npm run build && zip -vr dist.zip ./dist",
     "clean": "rimraf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"

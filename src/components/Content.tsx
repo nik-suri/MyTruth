@@ -1,42 +1,17 @@
 import { Col, Empty, Row, Typography } from 'antd';
 import React from 'react';
 import '../css/Content.css';
-import { BeliefStatus, bkg, Display, SavedBelief } from '../util';
+import { BeliefStatus, Display } from '../util';
 
 const { Text } = Typography;
 
 interface Props {
   selection: string;
-  setBeliefs: (newBeliefs: SavedBelief[]) => void;
+  saveBelief: (belief: string, status: BeliefStatus) => void;
   setDisplay: (newDisplay: Display) => void;
 }
 
-export default function Content({ selection, setBeliefs, setDisplay }: Props): JSX.Element {
-
-  function saveBelief(status: BeliefStatus): void {
-    chrome.storage.sync.get('beliefs', data => {
-      const currentBeliefs: SavedBelief[] = data.beliefs;
-
-      const saveTime = Date.now();
-      // const saveTime = Date.now() - 1814400000; // for testing
-
-      const newSavedBelief: SavedBelief = {
-        belief: selection,
-        status: status,
-        savedTime: saveTime,
-        updatedTime: null
-      };
-
-      const newBeliefs = currentBeliefs.concat(newSavedBelief);
-
-      chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
-        bkg?.console.log('Value is set to ', newBeliefs);
-      });
-
-      setBeliefs(newBeliefs);
-      setDisplay(Display.SaveSuccess);
-    });
-  }
+export default function Content({ selection, saveBelief, setDisplay }: Props): JSX.Element {
 
   const selectionSection: JSX.Element = selection === ''
     ? (
@@ -57,7 +32,7 @@ export default function Content({ selection, setBeliefs, setDisplay }: Props): J
           <Col>
             <div
               className='customBtn green'
-              onClick={(): void => saveBelief(BeliefStatus.True)}
+              onClick={(): void => saveBelief(selection, BeliefStatus.True)}
             >
               True
             </div>
@@ -65,7 +40,7 @@ export default function Content({ selection, setBeliefs, setDisplay }: Props): J
           <Col>
             <div
               className='customBtn red'
-              onClick={(): void => saveBelief(BeliefStatus.False)}
+              onClick={(): void => saveBelief(selection, BeliefStatus.False)}
             >
               False
             </div>
@@ -73,7 +48,7 @@ export default function Content({ selection, setBeliefs, setDisplay }: Props): J
           <Col>
             <div
               className='customBtn yellow'
-              onClick={(): void => saveBelief(BeliefStatus.Unsure)}
+              onClick={(): void => saveBelief(selection, BeliefStatus.Unsure)}
             >
               Unsure
             </div>
