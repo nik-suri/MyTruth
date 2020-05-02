@@ -6,6 +6,7 @@ import Beliefs from './components/Beliefs';
 import Content from './components/Content';
 import SaveSuccess from './components/SaveSuccess';
 import BeliefDetail from './components/BeliefDetail';
+import psl from 'psl';
 import { BeliefStatus, bkg, Display, SavedBelief, WrappedStaleBelief, WrappedOptionalBelief } from './lib/util';
 
 export default function Popup(): JSX.Element {
@@ -30,9 +31,36 @@ export default function Popup(): JSX.Element {
     });
   }, []);
 
+  // from https://stackoverflow.com/questions/8498592/extract-hostname-name-from-string
+  function extractHostname(url: string): string {
+    let hostname: string;
+    //find & remove protocol (http, ftp, etc.) and get hostname
+
+    if (url.indexOf('//') > -1) {
+      hostname = url.split('/')[2];
+    }
+    else {
+      hostname = url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
+  }
+
   function saveBelief(belief: string, status: BeliefStatus): void {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
       const url = tabs[0].url;
+
+      let urlDomain: string | null;
+      if (url) {
+        urlDomain = psl.get(extractHostname(url));
+      } else {
+        urlDomain = null;
+      }
 
       const currentBeliefs = cloneDeep(beliefs);
 
@@ -44,7 +72,8 @@ export default function Popup(): JSX.Element {
         status: status,
         savedTime: saveTime,
         updatedTime: null,
-        beliefURL: url
+        url: url,
+        urlDomain: urlDomain
       };
 
       const newBeliefs = currentBeliefs.concat(newSavedBelief);
@@ -59,7 +88,7 @@ export default function Popup(): JSX.Element {
   }
 
   function updateBelief(
-    atIndex: number, 
+    atIndex: number,
     newStatus: BeliefStatus,
     setDetailed = false
   ): void {

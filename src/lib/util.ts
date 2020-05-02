@@ -19,7 +19,8 @@ export interface SavedBelief {
   status: BeliefStatus;
   savedTime: number;
   updatedTime: number | null;
-  beliefURL: string | undefined;
+  url: string | undefined;
+  urlDomain: string | null;
 }
 
 // interface to pass a list of stale beliefs to a child component
