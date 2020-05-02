@@ -54,3 +54,43 @@
     margin-top: 5px;
     padding: 10px;
 }
+
+.beliefDetailContainer
+.body
+.sourceLinks {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.beliefDetailContainer
+.body
+.sourceLinks
+.sourceDomain {
+    display: flex;
+}
+
+.beliefDetailContainer
+.body
+.sourceLinks
+.articleLink {
+    background: none;
+}
+
+.beliefDetailContainer
+.body
+.sourceLinks
+.articleLink:hover {
+    background: rgba(0,0,0,.1);
+    -webkit-transition: background 100ms ease-in-out;
+    -ms-transition: background 100ms ease-in-out;
+    transition: background 100ms ease-in-out;
+}
+
+.beliefDetailContainer
+.body
+.sourceLinks
+.articleLink:focus {
+    background: rgba(0,0,0,.3);
+}

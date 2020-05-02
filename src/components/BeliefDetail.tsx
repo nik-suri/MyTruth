@@ -1,8 +1,9 @@
-import { Divider } from 'antd';
+import { Button, Divider } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Display, BeliefStatus, WrappedOptionalBelief } from '../lib/util';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
+import HoverBtn from '../lib/HoverBtn';
 
 interface Props {
   wrappedOptionalBelief: WrappedOptionalBelief;
@@ -66,8 +67,8 @@ export default function BeliefDetail({
     <div className='beliefDetailContainer'>
       <div className={`headerContainer ${titleClassColor}`}>
         <div className='header'>
-          <LeftOutlined 
-            className='backBtn' 
+          <LeftOutlined
+            className='backBtn'
             onClick={(): void => setDisplay(Display.Beliefs)}
           />
           <p className='text'>{belief.status}</p>
@@ -78,7 +79,25 @@ export default function BeliefDetail({
       </div>
       <div className='body'>
         <p>{belief.belief}</p>
-        <Divider />
+        <Divider style={{ marginBottom: '10px' }} />
+        <div className='sourceLinks'>
+          <div className='sourceDomain'>
+            <p style={{ margin: 'auto' }}>Source:</p> 
+            <Button 
+              type='link'
+              onClick={(): void => chrome.tabs.create({ url: belief.url })}
+            >
+              {belief.urlDomain}
+            </Button>
+          </div>
+          <HoverBtn
+            onClick={(): void => chrome.tabs.create({ url: belief.url })}
+          >
+            <Button type='link'>
+              Link to Article
+            </Button>
+          </HoverBtn>
+        </div>
       </div>
     </div>
   );

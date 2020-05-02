@@ -4,7 +4,7 @@ interface BtnProps {
   className?: string;
   type?: 'primary' | 'true' | 'false' | 'unsure';
   small?: boolean;
-  onClick: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+  onClick?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 }
 
 export function BeliefBtn({

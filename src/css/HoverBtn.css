@@ -1,0 +1,43 @@
+.hoverBtnWrapper {
+    min-width: 52px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.hoverBtnWrapper
+.hoverBtnBack {
+    position: absolute;
+    background: rgba(0,0,0,.1);
+    opacity: 0;
+    -webkit-transition: background 100ms ease-in-out;
+    -ms-transition: background 100ms ease-in-out;
+    transition: background 100ms ease-in-out;
+}
+
+.hoverBtnWrapper:hover
+.hoverBtnBack {
+    opacity: 1;
+}
+
+.hoverBtnWrapper:focus
+.hoverBtnBack {
+    background: rgba(0,0,0,.3);
+}
+
+.hoverBtnWrapper.hoverRectWrapper
+.hoverBtnBack {
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.hoverBtnWrapper.hoverCircleWrapper
+.hoverBtnBack {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+}
