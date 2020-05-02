@@ -6,15 +6,14 @@ import Beliefs from './components/Beliefs';
 import Content from './components/Content';
 import SaveSuccess from './components/SaveSuccess';
 import BeliefDetail from './components/BeliefDetail';
-import './css/Popup.css';
-import { BeliefStatus, bkg, Display, SavedBelief, WrappedStaleBelief } from './util';
+import { BeliefStatus, bkg, Display, SavedBelief, WrappedStaleBelief, WrappedOptionalBelief } from './lib/util';
 
 export default function Popup(): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
   const [display, setDisplay] = useState<Display>(Display.Main);
   const [selection, setSelection] = useState('');
   const [beliefs, setBeliefs] = useState<SavedBelief[]>([]);
-  const [detailedBelief, setDetailedBelief] = useState<SavedBelief | null>(null);
+  const [detailedBelief, setDetailedBelief] = useState<WrappedOptionalBelief>(null);
 
   useEffect(() => {
     chrome.tabs.executeScript({
@@ -59,7 +58,11 @@ export default function Popup(): JSX.Element {
     });
   }
 
-  function updateBelief(atIndex: number, newStatus: BeliefStatus): void {
+  function updateBelief(
+    atIndex: number, 
+    newStatus: BeliefStatus,
+    setDetailed = false
+  ): void {
     const newBeliefs = cloneDeep(beliefs);
     const updatingBelief = newBeliefs[atIndex];
     updatingBelief.status = newStatus;
@@ -68,6 +71,13 @@ export default function Popup(): JSX.Element {
     chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
       bkg?.console.log('Updated beliefs in storage.');
     });
+
+    if (setDetailed) {
+      const updatingBeliefCopy = cloneDeep(updatingBelief);
+      const newWrappedOptional: WrappedOptionalBelief = [updatingBeliefCopy, atIndex];
+      setDetailedBelief(newWrappedOptional);
+    }
+
     setBeliefs(newBeliefs);
   }
 
@@ -157,7 +167,9 @@ export default function Popup(): JSX.Element {
   case Display.BeliefDetail:
     displayContent = (
       <BeliefDetail
-        belief={detailedBelief}
+        wrappedOptionalBelief={detailedBelief}
+        updateBelief={updateBelief}
+        setDisplay={setDisplay}
       />
     );
     break;

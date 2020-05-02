@@ -1,7 +1,7 @@
 import { Col, Empty, Row, Typography } from 'antd';
 import React from 'react';
-import '../css/Content.css';
-import { BeliefStatus, Display } from '../util';
+import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
+import { BeliefStatus, Display } from '../lib/util';
 
 const { Text } = Typography;
 
@@ -30,28 +30,19 @@ export default function Content({ selection, saveBelief, setDisplay }: Props): J
         </Row>
         <Row justify='space-around'>
           <Col>
-            <div
-              className='customBtn green'
+            <TrueBeliefBtn
               onClick={(): void => saveBelief(selection, BeliefStatus.True)}
-            >
-              True
-            </div>
+            />
           </Col>
           <Col>
-            <div
-              className='customBtn red'
+            <FalseBeliefBtn
               onClick={(): void => saveBelief(selection, BeliefStatus.False)}
-            >
-              False
-            </div>
+            />
           </Col>
           <Col>
-            <div
-              className='customBtn yellow'
+            <UnsureBeliefBtn
               onClick={(): void => saveBelief(selection, BeliefStatus.Unsure)}
-            >
-              Unsure
-            </div>
+            />
           </Col>
         </Row>
       </>

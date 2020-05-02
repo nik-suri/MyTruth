@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Result } from 'antd';
-import { Display } from '../util';
+import { Display } from '../lib/util';
 
 interface Props {
   setDisplay: (newDisplay: Display) => void;

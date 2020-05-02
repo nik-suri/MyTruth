@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import React from 'react';
-import '../css/BeliefItem.css';
-import { BeliefStatus, SavedBelief, Display } from '../util';
+import { BeliefStatus, SavedBelief, Display, WrappedOptionalBelief } from '../lib/util';
+import { BeliefBtn, TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
 
 interface ExtraContentProps {
   innerElements: JSX.Element[];
@@ -16,7 +16,7 @@ interface Props {
   index: number;
   staleItem?: boolean;
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void;
-  setDetailedBelief: (detailedBelief: SavedBelief) => void;
+  setDetailedBelief: (detailedBelief: WrappedOptionalBelief) => void;
   setDisplay: (newDisplay: Display) => void;
 }
 
@@ -29,45 +29,52 @@ export default function BeliefItem({
   setDisplay
 }: Props): JSX.Element {
 
+  function handleBeliefBtnClick(
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>, 
+    status: BeliefStatus
+  ): void {
+    e.stopPropagation();
+    updateBelief(index, status);
+  }
+
   function switchToDetailedBelief(): void {
-    setDetailedBelief(belief);
+    const wrappedOptionalBelief: WrappedOptionalBelief = [belief, index];
+
+    setDetailedBelief(wrappedOptionalBelief);
     setDisplay(Display.BeliefDetail);
   }
 
   const staleBeliefBtn: JSX.Element | null = !staleItem ? null : (
-    <div
-      className='customBtn blue staleBeliefBtn'
-      onClick={(): void => updateBelief(index, belief.status)}
+    <BeliefBtn
+      className='staleBeliefBtn'
+      onClick={(e): void => handleBeliefBtnClick(e, belief.status)}
     >
-      Keep this Belief
-    </div>
+      Keep this belief
+    </BeliefBtn>
   );
 
   const trueSmallBtn = (
-    <div
-      className='customBtn green small beliefCardExtraBtn'
-      onClick={(): void => updateBelief(index, BeliefStatus.True)}
-    >
-      True
-    </div>
+    <TrueBeliefBtn
+      small
+      className='beliefCardExtraBtn'
+      onClick={(e): void => handleBeliefBtnClick(e, BeliefStatus.True)}
+    />
   );
 
   const falseSmallBtn = (
-    <div
-      className='customBtn red small beliefCardExtraBtn'
-      onClick={(): void => updateBelief(index, BeliefStatus.False)}
-    >
-      False
-    </div>
+    <FalseBeliefBtn
+      small
+      className='beliefCardExtraBtn'
+      onClick={(e): void => handleBeliefBtnClick(e, BeliefStatus.False)}
+    />
   );
 
   const unsureSmallBtn = (
-    <div
-      className='customBtn yellow small beliefCardExtraBtn'
-      onClick={(): void => updateBelief(index, BeliefStatus.Unsure)}
-    >
-      Unsure
-    </div>
+    <UnsureBeliefBtn
+      small
+      className='beliefCardExtraBtn'
+      onClick={(e): void => handleBeliefBtnClick(e, BeliefStatus.Unsure)}
+    />
   );
 
   let titleClass = 'beliefCardHeaderContent';

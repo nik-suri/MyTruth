@@ -1,14 +1,13 @@
 import { PageHeader } from 'antd';
 import React from 'react';
-import '../css/Beliefs.css';
-import { BeliefStatus, Display, SavedBelief, WrappedStaleBelief } from '../util';
+import { BeliefStatus, Display, SavedBelief, WrappedStaleBelief, WrappedOptionalBelief } from '../lib/util';
 import BeliefItem from './BeliefItem';
 
 interface Props {
   title: string;
   beliefs: SavedBelief[] | WrappedStaleBelief[];
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void;
-  setDetailedBelief: (detailedBelief: SavedBelief) => void;
+  setDetailedBelief: (detailedBelief: WrappedOptionalBelief) => void;
   setDisplay: (newDisplay: Display) => void;
 }
 

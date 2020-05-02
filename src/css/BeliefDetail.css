@@ -1,0 +1,44 @@
+.beliefDetailContainer
+.headerContainer.true {
+    background: var(--true-col);
+}
+
+.beliefDetailContainer
+.headerContainer.false {
+    background: var(--false-col);
+}
+
+.beliefDetailContainer
+.headerContainer.unsure {
+    background: var(--unsure-col);
+}
+
+.beliefDetailContainer
+.headerContainer
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.beliefDetailContainer
+.headerContainer
+.header
+.text {
+    font-size: 24px;
+    margin: 0px;
+    color: white;
+}
+
+.beliefDetailContainer
+.headerContainer
+.header
+.buttons {
+    display: flex;
+    height: fit-content;
+}
+
+.beliefDetailContainer
+.body {
+    padding: 10px;
+}

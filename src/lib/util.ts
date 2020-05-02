@@ -28,3 +28,5 @@ export interface WrappedStaleBelief {
   savedBelief: SavedBelief;
   savedIndex: number;
 }
+
+export type WrappedOptionalBelief = [SavedBelief, number] | null;
