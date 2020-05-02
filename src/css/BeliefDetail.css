@@ -24,6 +24,17 @@
 .beliefDetailContainer
 .headerContainer
 .header
+.backBtn {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.beliefDetailContainer
+.headerContainer
+.header
 .text {
     font-size: 24px;
     margin: 0px;
@@ -40,5 +51,6 @@
 
 .beliefDetailContainer
 .body {
+    margin-top: 5px;
     padding: 10px;
 }

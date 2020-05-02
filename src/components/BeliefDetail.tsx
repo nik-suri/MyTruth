@@ -1,4 +1,5 @@
 import { Divider } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Display, BeliefStatus, WrappedOptionalBelief } from '../lib/util';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
@@ -65,6 +66,10 @@ export default function BeliefDetail({
     <div className='beliefDetailContainer'>
       <div className={`headerContainer ${titleClassColor}`}>
         <div className='header'>
+          <LeftOutlined 
+            className='backBtn' 
+            onClick={(): void => setDisplay(Display.Beliefs)}
+          />
           <p className='text'>{belief.status}</p>
           <div className='buttons'>
             {beliefBtns}

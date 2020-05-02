@@ -9,9 +9,9 @@ export enum Display {
 }
 
 export enum BeliefStatus {
-  True = 'true',
-  False = 'false',
-  Unsure = 'unsure'
+  True = 'True',
+  False = 'False',
+  Unsure = 'Unsure'
 }
 
 export interface SavedBelief {
