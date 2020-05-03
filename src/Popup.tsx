@@ -106,13 +106,28 @@ export default function Popup(): JSX.Element {
     updatingBelief.updates.push(newUpdate);
 
     chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
-      bkg?.console.log('Updated beliefs in storage.');
+      bkg?.console.log('Updated beliefs in storage', newBeliefs);
     });
 
     if (setDetailed) {
       const updatingBeliefCopy = cloneDeep(updatingBelief);
       const newWrappedOptional: WrappedOptionalBelief = [updatingBeliefCopy, atIndex];
       setDetailedBelief(newWrappedOptional);
+    }
+
+    setBeliefs(newBeliefs);
+  }
+
+  function deleteBelief(atIndex: number, isDetailed = false): void {
+    const newBeliefs = cloneDeep(beliefs);
+    newBeliefs.splice(atIndex, 1);
+
+    chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
+      bkg?.console.log('Updated beliefs in storage', newBeliefs);
+    });
+
+    if (isDetailed) {
+      setDetailedBelief(null);
     }
 
     setBeliefs(newBeliefs);
@@ -206,6 +221,7 @@ export default function Popup(): JSX.Element {
       <BeliefDetail
         wrappedOptionalBelief={detailedBelief}
         updateBelief={updateBelief}
+        deleteBelief={deleteBelief}
         setDisplay={setDisplay}
       />
     );

@@ -1,5 +1,5 @@
-import { Button, Divider, Tag } from 'antd';
-import { LeftOutlined } from '@ant-design/icons';
+import { Button, Divider, Tag, Timeline } from 'antd';
+import { DeleteOutlined, LeftOutlined } from '@ant-design/icons';
 import React from 'react';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
 import HoverBtn from '../lib/HoverBtn';
@@ -8,12 +8,14 @@ import { accessCSSBeliefColor, getLatestBelief } from '../lib/util';
 interface Props {
   wrappedOptionalBelief: WrappedOptionalBelief;
   updateBelief: (atIndex: number, newStatus: BeliefStatus, setDetailed?: boolean) => void;
+  deleteBelief: (atIndex: number, isDetailed?: boolean) => void;
   setDisplay: (newDisplay: Display) => void;
 }
 
 export default function BeliefDetail({
   wrappedOptionalBelief,
   updateBelief,
+  deleteBelief,
   setDisplay
 }: Props): JSX.Element {
   if (wrappedOptionalBelief === null) {
@@ -22,6 +24,11 @@ export default function BeliefDetail({
 
   const [belief, index] = wrappedOptionalBelief;
   const latestBelief = getLatestBelief(belief);
+
+  function deleteBeliefInner(): void {
+    deleteBelief(index, true);
+    setDisplay(Display.Beliefs);
+  }
 
   const trueSmallBtn = (
     <TrueBeliefBtn
@@ -77,6 +84,15 @@ export default function BeliefDetail({
     updatedTimeSpan = null;
   }
 
+  const updatesTimeline = [belief.savedAs].concat(belief.updates).reverse().map(beliefUpdate => (
+    <Timeline.Item key={beliefUpdate.time}>
+      <span className='timeSpan'>
+        <p className='timeText'>{(new Date(beliefUpdate.time)).toLocaleString()}</p>
+        <Tag color={accessCSSBeliefColor(beliefUpdate.status)}>{beliefUpdate.status}</Tag>
+      </span>
+    </Timeline.Item>
+  ));
+
   return (
     <div className='beliefDetailContainer'>
       <div className={`headerContainer ${titleClassColor}`}>
@@ -111,6 +127,13 @@ export default function BeliefDetail({
               Link to Article
             </Button>
           </HoverBtn>
+          <HoverBtn
+            className='deleteBtn'
+            type='circle'
+            onClick={(): void => deleteBeliefInner()}
+          >
+            <DeleteOutlined />
+          </HoverBtn>
         </div>
         <div className='timeDisplay'>
           {updatedTimeSpan}
@@ -122,6 +145,9 @@ export default function BeliefDetail({
         <Divider orientation='left'>
           History
         </Divider>
+        <Timeline style={{ margin: '20px' }}>
+          {updatesTimeline}
+        </Timeline>
       </div>
     </div>
   );

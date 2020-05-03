@@ -66,6 +66,15 @@
 
 .beliefDetailContainer
 .body
+.sourceLinks
+.deleteBtn {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #f50;
+}
+
+.beliefDetailContainer
+.body
 .timeDisplay {
     color: var(--tertiary-col);
     padding: 10px;
@@ -73,7 +82,6 @@
 
 .beliefDetailContainer
 .body
-.timeDisplay
 .timeSpan {
     display: flex;
     margin-bottom: 5px;
@@ -81,9 +89,15 @@
 
 .beliefDetailContainer
 .body
-.timeDisplay
 .timeSpan
 .timeText {
     margin: 0px 8px 0px 0px;
+}
+
+.beliefDetailContainer
+.body
+.timeDisplay
+.timeSpan
+.timeText {
     font-style: italic;
 }
