@@ -6,6 +6,7 @@ import Beliefs from './components/Beliefs';
 import Content from './components/Content';
 import SaveSuccess from './components/SaveSuccess';
 import BeliefDetail from './components/BeliefDetail';
+import Settings from './components/Settings';
 import psl from 'psl';
 import { bkg, getLatestBelief } from './lib/util';
 
@@ -227,7 +228,9 @@ export default function Popup(): JSX.Element {
     );
     break;
   case Display.Settings:
-    displayContent = <p>Settings</p>;
+    displayContent = (
+      <Settings />
+    );
     break;
   }
 

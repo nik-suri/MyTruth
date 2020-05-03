@@ -1,4 +1,4 @@
-import { Button, Divider, Tag, Timeline } from 'antd';
+import { Button, Divider, Popconfirm, Tag, Timeline } from 'antd';
 import { DeleteOutlined, LeftOutlined } from '@ant-design/icons';
 import React from 'react';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
@@ -139,14 +139,21 @@ export default function BeliefDetail({
             </Button>
           </HoverBtn>
 
-          <HoverBtn
-            className='deleteBtn'
-            type='circle'
-            onClick={(): void => deleteBeliefInner()}
+          <Popconfirm
+            placement='bottomRight'
+            title='Are you sure you want to delete this belief?'
+            onConfirm={(): void => deleteBeliefInner()}
+            okText='Yes'
+            cancelText='No'
           >
-            <DeleteOutlined />
-          </HoverBtn>
-          
+            <HoverBtn
+              className='deleteBtn'
+              type='circle'
+            >
+              <DeleteOutlined />
+            </HoverBtn>
+          </Popconfirm>
+
         </div>
 
         <div className='timeDisplay'>
