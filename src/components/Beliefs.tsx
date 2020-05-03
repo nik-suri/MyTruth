@@ -1,4 +1,4 @@
-import { PageHeader } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 import React from 'react';
 import BeliefItem from './BeliefItem';
 
@@ -48,11 +48,23 @@ export default function Beliefs({
 
   return (
     <div className='beliefDisplay'>
-      <PageHeader
-        className='beliefsHeader'
-        title={title}
-        onBack={(): void => setDisplay(Display.Main)}
-      />
+      
+      <div className='header'>
+
+        <div className='left'>
+          <LeftOutlined
+            className='backBtn'
+            onClick={(): void => setDisplay(Display.Main)}
+          />
+          <p className='text'>{title}</p>
+        </div>
+
+        <div className='right'>
+
+        </div>
+
+      </div>
+
       {beliefElements}
     </div>
   );

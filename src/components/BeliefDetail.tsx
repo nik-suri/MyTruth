@@ -95,22 +95,32 @@ export default function BeliefDetail({
 
   return (
     <div className='beliefDetailContainer'>
+
       <div className={`headerContainer ${titleClassColor}`}>
         <div className='header'>
+
           <LeftOutlined
             className='backBtn'
             onClick={(): void => setDisplay(Display.Beliefs)}
           />
+
           <p className='text'>{latestBelief.status}</p>
+
           <div className='buttons'>
             {beliefBtns}
           </div>
+
         </div>
       </div>
+
       <div className='body'>
+
         <p>{belief.belief}</p>
+
         <Divider style={{ marginBottom: '10px' }} />
+
         <div className='sourceLinks'>
+
           <div style={{ display: 'flex' }}>
             <p style={{ margin: 'auto' }}>Source:</p>
             <Button
@@ -120,6 +130,7 @@ export default function BeliefDetail({
               {belief.urlDomain}
             </Button>
           </div>
+
           <HoverBtn
             onClick={(): void => chrome.tabs.create({ url: belief.url })}
           >
@@ -127,6 +138,7 @@ export default function BeliefDetail({
               Link to Article
             </Button>
           </HoverBtn>
+
           <HoverBtn
             className='deleteBtn'
             type='circle'
@@ -134,7 +146,9 @@ export default function BeliefDetail({
           >
             <DeleteOutlined />
           </HoverBtn>
+          
         </div>
+
         <div className='timeDisplay'>
           {updatedTimeSpan}
           <span className='timeSpan'>
@@ -142,13 +156,17 @@ export default function BeliefDetail({
             <Tag color={accessCSSBeliefColor(belief.savedAs.status)}>{belief.savedAs.status}</Tag>
           </span>
         </div>
+
         <Divider orientation='left'>
           History
         </Divider>
+
         <Timeline style={{ margin: '20px' }}>
           {updatesTimeline}
         </Timeline>
+
       </div>
+
     </div>
   );
 }

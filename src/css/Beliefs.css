@@ -2,6 +2,31 @@
     padding: 10px;
 }
 
-.beliefsHeader {
-    padding: 0px;
+.beliefDisplay
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.beliefDisplay
+.header
+.left {
+    display: flex;
+}
+
+.beliefDisplay
+.header
+.left
+.backBtn {
+    margin: auto;
+    font-size: 20px;
+}
+
+.beliefDisplay
+.header
+.left
+.text {
+    margin: 0px 0px 0px 10px;
+    font-size: 22px;
 }
