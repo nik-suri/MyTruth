@@ -226,6 +226,9 @@ export default function Popup(): JSX.Element {
       />
     );
     break;
+  case Display.Settings:
+    displayContent = <p>Settings</p>;
+    break;
   }
 
   return isLoading ? <></> : displayContent;

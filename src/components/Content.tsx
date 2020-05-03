@@ -1,6 +1,8 @@
-import { Col, Empty, Row, Typography } from 'antd';
+import { Button, Card, Empty, Typography } from 'antd';
+import { SettingFilled } from '@ant-design/icons';
 import React from 'react';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
+import HoverBtn from '../lib/HoverBtn';
 
 const { Text } = Typography;
 
@@ -24,38 +26,61 @@ export default function Content({ selection, saveBelief, setDisplay }: Props): J
     )
     : (
       <>
-        <Row id='selectionRow'>
+        <div id='content'>
           <Text strong>{selection}</Text>
-        </Row>
-        <Row justify='space-around'>
-          <Col>
-            <TrueBeliefBtn
-              onClick={(): void => saveBelief(selection, BeliefStatus.True)}
-            />
-          </Col>
-          <Col>
-            <FalseBeliefBtn
-              onClick={(): void => saveBelief(selection, BeliefStatus.False)}
-            />
-          </Col>
-          <Col>
-            <UnsureBeliefBtn
-              onClick={(): void => saveBelief(selection, BeliefStatus.Unsure)}
-            />
-          </Col>
-        </Row>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <TrueBeliefBtn
+            className='beliefSelection'
+            onClick={(): void => saveBelief(selection, BeliefStatus.True)}
+          />
+          <FalseBeliefBtn
+            className='beliefSelection'
+            onClick={(): void => saveBelief(selection, BeliefStatus.False)}
+          />
+          <UnsureBeliefBtn
+            className='beliefSelection'
+            onClick={(): void => saveBelief(selection, BeliefStatus.Unsure)}
+          />
+        </div>
       </>
     );
 
   return (
-    <div className='contentWrapper'>
-      {selectionSection}
-      <div
-        className='customBtn bluePop contentNavBtn'
-        onClick={(): void => setDisplay(Display.Beliefs)}
-      >
-        See my Beliefs
+    <>
+      <div className='contentHeader'>
+        <div className='title'>MyTruth</div>
+        <div style={{ display: 'flex' }}>
+          <HoverBtn
+            className='contribute'
+            onClick={(): void => chrome.tabs.create({ url: 'https://github.com/nik-suri/MyTruth' })}
+          >
+            <Button 
+              type='link'
+              style={{ color: 'white', fontSize: '15px' }}
+            >
+              Contribute
+            </Button>
+          </HoverBtn>
+          <HoverBtn
+            type='circle'
+            onClick={(): void => setDisplay(Display.Settings)}
+          >
+            <SettingFilled style={{ color: 'white', fontSize: '20px' }}/>
+          </HoverBtn>
+        </div>
       </div>
-    </div>
+      <div className='contentWrapper'>
+        <Card className='claimSelection'>
+          {selectionSection}
+        </Card>
+        <div
+          className='customBtn bluePop contentNavBtn'
+          onClick={(): void => setDisplay(Display.Beliefs)}
+        >
+          See my Beliefs
+        </div>
+      </div>
+    </>
   );
 }
