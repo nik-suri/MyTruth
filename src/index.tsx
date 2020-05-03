@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Popup from './Popup';
 
+import './lib/enums';
+
 // css imports
 import './css/HoverBtn.css';
 import './css/Popup.css';

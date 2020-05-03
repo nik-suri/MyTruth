@@ -1,6 +1,5 @@
 import { PageHeader } from 'antd';
 import React from 'react';
-import { BeliefStatus, Display, SavedBelief, WrappedStaleBelief, WrappedOptionalBelief } from '../lib/util';
 import BeliefItem from './BeliefItem';
 
 interface Props {

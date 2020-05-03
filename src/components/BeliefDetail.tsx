@@ -1,9 +1,9 @@
 import { Button, Divider } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import React from 'react';
-import { Display, BeliefStatus, WrappedOptionalBelief } from '../lib/util';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
 import HoverBtn from '../lib/HoverBtn';
+import { bkg, getLatestBelief } from '../lib/util';
 
 interface Props {
   wrappedOptionalBelief: WrappedOptionalBelief;
@@ -21,6 +21,7 @@ export default function BeliefDetail({
   }
 
   const [belief, index] = wrappedOptionalBelief;
+  const latestBelief = getLatestBelief(belief);
 
   const trueSmallBtn = (
     <TrueBeliefBtn
@@ -48,7 +49,7 @@ export default function BeliefDetail({
 
   let titleClassColor: string;
   let beliefBtns: JSX.Element[];
-  switch (belief.status) {
+  switch (latestBelief.status) {
   case BeliefStatus.True:
     titleClassColor = 'true';
     beliefBtns = [falseSmallBtn, unsureSmallBtn];
@@ -63,6 +64,8 @@ export default function BeliefDetail({
     break;
   }
 
+  bkg?.console.log(belief.updates);
+
   return (
     <div className='beliefDetailContainer'>
       <div className={`headerContainer ${titleClassColor}`}>
@@ -71,7 +74,7 @@ export default function BeliefDetail({
             className='backBtn'
             onClick={(): void => setDisplay(Display.Beliefs)}
           />
-          <p className='text'>{belief.status}</p>
+          <p className='text'>{latestBelief.status}</p>
           <div className='buttons'>
             {beliefBtns}
           </div>
@@ -81,7 +84,7 @@ export default function BeliefDetail({
         <p>{belief.belief}</p>
         <Divider style={{ marginBottom: '10px' }} />
         <div className='sourceLinks'>
-          <div className='sourceDomain'>
+          <div style={{ display: 'flex' }}>
             <p style={{ margin: 'auto' }}>Source:</p> 
             <Button 
               type='link'

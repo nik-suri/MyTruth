@@ -1,7 +1,6 @@
 import { Col, Empty, Row, Typography } from 'antd';
 import React from 'react';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
-import { BeliefStatus, Display } from '../lib/util';
 
 const { Text } = Typography;
 

@@ -1,33 +1,9 @@
 export const bkg = chrome.extension.getBackgroundPage();
 
-export enum Display {
-  Main,
-  SaveSuccess,
-  Beliefs,
-  StaleBeliefs,
-  BeliefDetail
-}
+export function getLatestBelief(belief: SavedBelief): BeliefUpdate {
+  if (belief.updates.length > 0) {
+    return belief.updates[belief.updates.length - 1];
+  }
 
-export enum BeliefStatus {
-  True = 'True',
-  False = 'False',
-  Unsure = 'Unsure'
+  return belief.savedAs;
 }
-
-export interface SavedBelief {
-  belief: string;
-  status: BeliefStatus;
-  savedTime: number;
-  updatedTime: number | null;
-  url: string | undefined;
-  urlDomain: string | null;
-}
-
-// interface to pass a list of stale beliefs to a child component
-// the belief is wrapped with its original index in the un-shortened list
-export interface WrappedStaleBelief {
-  savedBelief: SavedBelief;
-  savedIndex: number;
-}
-
-export type WrappedOptionalBelief = [SavedBelief, number] | null;

@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import React from 'react';
-import { BeliefStatus, SavedBelief, Display, WrappedOptionalBelief } from '../lib/util';
 import { BeliefBtn, TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
+import { getLatestBelief } from '../lib/util';
 
 interface ExtraContentProps {
   innerElements: JSX.Element[];
@@ -29,6 +29,8 @@ export default function BeliefItem({
   setDisplay
 }: Props): JSX.Element {
 
+  const latestBelief = getLatestBelief(belief);
+
   function handleBeliefBtnClick(
     e: React.MouseEvent<HTMLDivElement, MouseEvent>, 
     status: BeliefStatus
@@ -43,11 +45,11 @@ export default function BeliefItem({
     setDetailedBelief(wrappedOptionalBelief);
     setDisplay(Display.BeliefDetail);
   }
-
+  
   const staleBeliefBtn: JSX.Element | null = !staleItem ? null : (
     <BeliefBtn
       className='staleBeliefBtn'
-      onClick={(e): void => handleBeliefBtnClick(e, belief.status)}
+      onClick={(e): void => handleBeliefBtnClick(e, latestBelief.status)}
     >
       Keep this belief
     </BeliefBtn>
@@ -79,7 +81,7 @@ export default function BeliefItem({
 
   let titleClass = 'beliefCardHeaderContent';
   let extraContent: JSX.Element;
-  switch (belief.status as BeliefStatus) {
+  switch (latestBelief.status) {
   case BeliefStatus.True:
     titleClass += ' trueTitle';
     extraContent = (
@@ -107,19 +109,18 @@ export default function BeliefItem({
   }
 
   // show proper saved/updated time
+  const updateDate = new Date(latestBelief.time);
   let timeDisplay: string;
-  if (belief.updatedTime !== null) {
-    const updatedTimeDate = new Date(belief.updatedTime);
-    timeDisplay = `Updated ${updatedTimeDate.toLocaleString()}`;
+  if (belief.updates.length > 0) {
+    timeDisplay = `Updated ${updateDate.toLocaleString()}`;
   } else {
-    const savedTimeDate = new Date(belief.savedTime);
-    timeDisplay = `Saved ${savedTimeDate.toLocaleString()}`;
+    timeDisplay = `Saved ${updateDate.toLocaleString()}`;
   }
 
   const titleEl = (
     <>
       <div className='beliefCardHeaderContainer'>
-        <p className={titleClass}>{belief.status}</p>
+        <p className={titleClass}>{latestBelief.status}</p>
         {staleBeliefBtn}
       </div>
       <div>

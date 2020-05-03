@@ -7,7 +7,7 @@ import Content from './components/Content';
 import SaveSuccess from './components/SaveSuccess';
 import BeliefDetail from './components/BeliefDetail';
 import psl from 'psl';
-import { BeliefStatus, bkg, Display, SavedBelief, WrappedStaleBelief, WrappedOptionalBelief } from './lib/util';
+import { bkg, getLatestBelief } from './lib/util';
 
 export default function Popup(): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,11 +67,15 @@ export default function Popup(): JSX.Element {
       const saveTime = Date.now();
       // const saveTime = Date.now() - 1814400000; // for testing
 
+      const savedAs: BeliefUpdate = {
+        status: status,
+        time: saveTime
+      };
+
       const newSavedBelief: SavedBelief = {
         belief: belief,
-        status: status,
-        savedTime: saveTime,
-        updatedTime: null,
+        savedAs: savedAs,
+        updates: [],
         url: url,
         urlDomain: urlDomain
       };
@@ -94,8 +98,12 @@ export default function Popup(): JSX.Element {
   ): void {
     const newBeliefs = cloneDeep(beliefs);
     const updatingBelief = newBeliefs[atIndex];
-    updatingBelief.status = newStatus;
-    updatingBelief.updatedTime = Date.now();
+
+    const newUpdate: BeliefUpdate = {
+      status: newStatus,
+      time: Date.now()
+    };
+    updatingBelief.updates.push(newUpdate);
 
     chrome.storage.sync.set({ 'beliefs': newBeliefs }, () => {
       bkg?.console.log('Updated beliefs in storage.');
@@ -119,7 +127,7 @@ export default function Popup(): JSX.Element {
         savedIndex: index
       };
 
-      const beliefTimeRef = belief.updatedTime ?? belief.savedTime;
+      const beliefTimeRef = getLatestBelief(belief).time;
       if (currentTime - beliefTimeRef >= staleTimeDiff) {
         return acc.concat(wrappedStaleBelief);
       }
