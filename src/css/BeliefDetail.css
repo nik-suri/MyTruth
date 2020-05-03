@@ -63,3 +63,27 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.beliefDetailContainer
+.body
+.timeDisplay {
+    color: var(--tertiary-col);
+    padding: 10px;
+}
+
+.beliefDetailContainer
+.body
+.timeDisplay
+.timeSpan {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.beliefDetailContainer
+.body
+.timeDisplay
+.timeSpan
+.timeText {
+    margin: 0px 8px 0px 0px;
+    font-style: italic;
+}

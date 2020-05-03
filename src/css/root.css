@@ -1,0 +1,79 @@
+:root {
+    --primary-col: #1FB6FF;
+    --primary-col-dark: #009EEB;
+    --true-col: rgb(19, 202, 101);
+    --true-col-dark:  rgb(17, 167, 84);
+    --false-col: rgb(218, 82, 41);
+    --false-col-dark: rgb(189, 71, 36);
+    --unsure-col: rgb(230, 213, 68);
+    --unsure-col-dark: rgb(207, 193, 62);
+    --tertiary-col: rgb(150, 149, 149);
+}
+
+.customBtn {
+    padding: 0px 20px;
+    line-height: 40px;
+    background: none;
+    color: white;
+    border-radius: 4px;
+    box-shadow: inset 0 -3px 0 rgba(31, 45, 61, .15);
+    cursor: pointer;
+    -webkit-transition: color 0.2s linear;
+    -moz-transition: color 0.2s linear;
+    transition: color 0.2s linear;
+    -webkit-transition: background 0.2s linear;
+    -moz-transition: background 0.2s linear;
+    transition: background 0.2s linear;
+    -webkit-transition: box-shadow 0.2s linear;
+    -moz-transition: box-shadow 0.2s linear;
+    transition: box-shadow 0.2s linear;
+}
+
+.customBtn.small {
+    padding: 0px 10px;
+    line-height: 32px;
+}
+
+.customBtn.blue {
+    background: var(--primary-col)
+}
+
+.customBtn.blue:hover {
+    background: var(--primary-col-dark)
+}
+
+.customBtn.green {
+    background: var(--true-col)
+}
+
+.customBtn.green:hover {
+    background: var(--true-col-dark)
+}
+
+.customBtn.red {
+    background: var(--false-col)
+}
+
+.customBtn.red:hover {
+    background: var(--false-col-dark)
+}
+
+.customBtn.yellow {
+    background: var(--unsure-col)
+}
+
+.customBtn.yellow:hover {
+    background: var(--unsure-col-dark)
+}
+
+.customBtn.bluePop {
+    background: none;
+    box-shadow: inset 0 0 0 1px #e0e6ed;
+    color: #8492a6;
+}
+
+.customBtn.bluePop:hover {
+    box-shadow: inset 0 -3px 0 rgba(31,45,61,.15);
+    background: var(--primary-col-dark);
+    color: white;
+}

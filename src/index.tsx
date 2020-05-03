@@ -5,6 +5,7 @@ import Popup from './Popup';
 import './lib/enums';
 
 // css imports
+import './css/root.css';
 import './css/HoverBtn.css';
 import './css/Popup.css';
 import './css/Content.css';

@@ -1,9 +1,9 @@
-import { Button, Divider } from 'antd';
+import { Button, Divider, Tag } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import React from 'react';
 import { TrueBeliefBtn, FalseBeliefBtn, UnsureBeliefBtn } from '../lib/BeliefBtns';
 import HoverBtn from '../lib/HoverBtn';
-import { bkg, getLatestBelief } from '../lib/util';
+import { accessCSSBeliefColor, getLatestBelief } from '../lib/util';
 
 interface Props {
   wrappedOptionalBelief: WrappedOptionalBelief;
@@ -64,7 +64,18 @@ export default function BeliefDetail({
     break;
   }
 
-  bkg?.console.log(belief.updates);
+  let updatedTimeSpan: JSX.Element | null;
+  if (belief.updates.length > 0) {
+    const updatedTimeText = `Updated to current on ${(new Date(latestBelief.time)).toLocaleString()}`;
+    updatedTimeSpan = (
+      <span className='timeSpan'>
+        <p className='timeText'>{updatedTimeText}</p>
+        <Tag color={accessCSSBeliefColor(latestBelief.status)}>{latestBelief.status}</Tag>
+      </span>
+    );
+  } else {
+    updatedTimeSpan = null;
+  }
 
   return (
     <div className='beliefDetailContainer'>
@@ -85,8 +96,8 @@ export default function BeliefDetail({
         <Divider style={{ marginBottom: '10px' }} />
         <div className='sourceLinks'>
           <div style={{ display: 'flex' }}>
-            <p style={{ margin: 'auto' }}>Source:</p> 
-            <Button 
+            <p style={{ margin: 'auto' }}>Source:</p>
+            <Button
               type='link'
               onClick={(): void => chrome.tabs.create({ url: belief.url })}
             >
@@ -101,6 +112,16 @@ export default function BeliefDetail({
             </Button>
           </HoverBtn>
         </div>
+        <div className='timeDisplay'>
+          {updatedTimeSpan}
+          <span className='timeSpan'>
+            <p className='timeText'>{`Saved on ${(new Date(belief.savedAs.time)).toLocaleString()}`}</p>
+            <Tag color={accessCSSBeliefColor(belief.savedAs.status)}>{belief.savedAs.status}</Tag>
+          </span>
+        </div>
+        <Divider orientation='left'>
+          History
+        </Divider>
       </div>
     </div>
   );

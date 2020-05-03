@@ -23,7 +23,7 @@
 }
 
 #beliefCardHeaderTimeDisplay {
-    color: rgb(150, 149, 149);
+    color: var(--tertiary-col);
     font-weight: 300;
 }
 
