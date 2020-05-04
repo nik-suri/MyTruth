@@ -69,8 +69,8 @@ export default function Popup(): JSX.Element {
 
       const currentBeliefs = cloneDeep(beliefs);
 
-      // const saveTime = Date.now();
-      const saveTime = Date.now() - 604800000; // for testing 1 week staleness
+      const saveTime = Date.now();
+      // const saveTime = Date.now() - 604800000; // for testing 1 week staleness
 
       const savedAs: BeliefUpdate = {
         status: status,
