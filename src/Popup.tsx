@@ -14,6 +14,7 @@ export default function Popup(): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
   const [display, setDisplay] = useState<Display>(Display.Main);
   const [selection, setSelection] = useState('');
+  const [millisecondsTillStale, setMillisecondsTillStale] = useState(0);
   const [beliefs, setBeliefs] = useState<SavedBelief[]>([]);
   const [detailedBelief, setDetailedBelief] = useState<WrappedOptionalBelief>(null);
 
@@ -26,8 +27,10 @@ export default function Popup(): JSX.Element {
       setIsLoading(false);
     });
 
-    chrome.storage.sync.get('beliefs', data => {
+    chrome.storage.sync.get(['beliefs', 'millisecondsTillStale'], data => {
       const savedBeliefs: SavedBelief[] = data.beliefs;
+      const millisecondsTillStale: number = data.millisecondsTillStale;
+      setMillisecondsTillStale(millisecondsTillStale);
       setBeliefs(savedBeliefs);
     });
   }, []);
@@ -66,7 +69,7 @@ export default function Popup(): JSX.Element {
       const currentBeliefs = cloneDeep(beliefs);
 
       const saveTime = Date.now();
-      // const saveTime = Date.now() - 1814400000; // for testing
+      // const saveTime = Date.now() - millisecondsTillStale; // for testing
 
       const savedAs: BeliefUpdate = {
         status: status,
@@ -136,7 +139,7 @@ export default function Popup(): JSX.Element {
 
   function calculateStaleBeliefs(): WrappedStaleBelief[] {
     const currentTime = Date.now();
-    const staleTimeDiff = 1814400000; // milliseconds representing 3 weeks
+
     return beliefs.reduce((acc: WrappedStaleBelief[], belief, index) => {
       const wrappedStaleBelief: WrappedStaleBelief = {
         savedBelief: belief,
@@ -144,7 +147,7 @@ export default function Popup(): JSX.Element {
       };
 
       const beliefTimeRef = getLatestBelief(belief).time;
-      if (currentTime - beliefTimeRef >= staleTimeDiff) {
+      if (currentTime - beliefTimeRef >= millisecondsTillStale) {
         return acc.concat(wrappedStaleBelief);
       }
       return acc;
@@ -229,7 +232,11 @@ export default function Popup(): JSX.Element {
     break;
   case Display.Settings:
     displayContent = (
-      <Settings />
+      <Settings
+        millisecondsTillStale={millisecondsTillStale}
+        setMillisecondsTillStale={setMillisecondsTillStale}
+        setDisplay={setDisplay}
+      />
     );
     break;
   }

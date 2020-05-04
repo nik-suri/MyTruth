@@ -60,7 +60,7 @@ export default function Beliefs({
         </div>
 
         <div className='right'>
-
+          {/* put filtering in here */}
         </div>
 
       </div>

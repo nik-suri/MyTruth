@@ -75,7 +75,7 @@ export default function Content({ selection, saveBelief, setDisplay }: Props): J
           {selectionSection}
         </Card>
         <div
-          className='customBtn bluePop contentNavBtn'
+          className='customBtn pop blue contentNavBtn'
           onClick={(): void => setDisplay(Display.Beliefs)}
         >
           See my Beliefs

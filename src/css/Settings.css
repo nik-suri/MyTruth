@@ -1,0 +1,43 @@
+.settingsDisplay {
+    padding: 10px;
+}
+
+.settingsDisplay
+.header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.settingsDisplay
+.header
+.backBtn {
+    margin: auto 0px;
+    font-size: 20px;
+}
+
+.settingsDisplay
+.header
+.text {
+    margin: 0px 0px 0px 10px;
+    font-size: 22px;
+}
+
+.settingsDisplay
+.staleBeliefCutoff {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.settingsDisplay
+.staleBeliefCutoff p {
+    margin: 0 5px;
+    height: fit-content;
+}
+
+.settingsDisplay
+.staleBeliefCutoff
+.infoText {
+    font-style: italic;
+    font-size: 12px;
+    color: var(--tertiary-col);
+}

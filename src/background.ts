@@ -1,13 +1,17 @@
 interface Beliefs {
   beliefs: string[];
+  millisecondsTillStale: number;
 }
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log('installed');
 
+  const threeWeekMilliseconds = 1814400000;
+
   // instantiate values
   const beliefs: Beliefs = {
-    beliefs: []
+    beliefs: [],
+    millisecondsTillStale: threeWeekMilliseconds
   };
   
   chrome.storage.sync.set(beliefs, function() {
