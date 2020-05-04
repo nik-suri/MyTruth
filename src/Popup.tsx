@@ -16,6 +16,7 @@ export default function Popup(): JSX.Element {
   const [selection, setSelection] = useState('');
   const [millisecondsTillStale, setMillisecondsTillStale] = useState(0);
   const [beliefs, setBeliefs] = useState<SavedBelief[]>([]);
+  const [detailBeliefFromView, setDetailBeliefFromView] = useState<Display | null>(null);
   const [detailedBelief, setDetailedBelief] = useState<WrappedOptionalBelief>(null);
 
   useEffect(() => {
@@ -68,8 +69,8 @@ export default function Popup(): JSX.Element {
 
       const currentBeliefs = cloneDeep(beliefs);
 
-      const saveTime = Date.now();
-      // const saveTime = Date.now() - millisecondsTillStale; // for testing
+      // const saveTime = Date.now();
+      const saveTime = Date.now() - 604800000; // for testing 1 week staleness
 
       const savedAs: BeliefUpdate = {
         status: status,
@@ -163,7 +164,7 @@ export default function Popup(): JSX.Element {
         className='notifBanner'
         onClick={(): void => setDisplay(Display.StaleBeliefs)}
       >
-        <p id='notifBannerText'>Old beliefs - Update them now!</p>
+        <p>Old beliefs - Update them now!</p>
         <Badge
           className='notifBannerBadge'
           count={staleBeliefs.length}
@@ -204,6 +205,7 @@ export default function Popup(): JSX.Element {
           beliefs={beliefs}
           updateBelief={updateBelief}
           setDetailedBelief={setDetailedBelief}
+          setDetailBeliefFromView={setDetailBeliefFromView}
           setDisplay={setDisplay}
         />
       </>
@@ -216,6 +218,7 @@ export default function Popup(): JSX.Element {
         beliefs={staleBeliefs}
         updateBelief={updateBelief}
         setDetailedBelief={setDetailedBelief}
+        setDetailBeliefFromView={setDetailBeliefFromView}
         setDisplay={setDisplay}
       />
     );
@@ -227,6 +230,8 @@ export default function Popup(): JSX.Element {
         updateBelief={updateBelief}
         deleteBelief={deleteBelief}
         setDisplay={setDisplay}
+        fromView={detailBeliefFromView}
+        millisecondsTillStale={millisecondsTillStale}
       />
     );
     break;

@@ -1,20 +1,20 @@
 .notifBanner {
     color: white;
-    background: var(--primary-col);
+    background: var(--primary-col-dark);
     cursor: pointer;
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
     display: flex;
 }
 
-.notifBanner:hover {
+/* .notifBanner:hover {
     background: var(--primary-col-dark)
-}
+} */
 
-#notifBannerText {
-    margin-bottom: 0px;
+.notifBanner p {
+    margin: 0;
 }
 
 .notifBannerBadge {

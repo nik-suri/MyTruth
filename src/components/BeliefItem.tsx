@@ -17,6 +17,7 @@ interface Props {
   staleItem?: boolean;
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void;
   setDetailedBelief: (detailedBelief: WrappedOptionalBelief) => void;
+  setDetailBeliefFromView: (fromView: Display) => void;
   setDisplay: (newDisplay: Display) => void;
 }
 
@@ -26,6 +27,7 @@ export default function BeliefItem({
   staleItem = false,
   updateBelief,
   setDetailedBelief,
+  setDetailBeliefFromView,
   setDisplay
 }: Props): JSX.Element {
 
@@ -43,6 +45,11 @@ export default function BeliefItem({
     const wrappedOptionalBelief: WrappedOptionalBelief = [belief, index];
 
     setDetailedBelief(wrappedOptionalBelief);
+    if (staleItem) {
+      setDetailBeliefFromView(Display.StaleBeliefs);
+    } else {
+      setDetailBeliefFromView(Display.Beliefs);
+    }
     setDisplay(Display.BeliefDetail);
   }
   

@@ -7,6 +7,7 @@ interface Props {
   beliefs: SavedBelief[] | WrappedStaleBelief[];
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void;
   setDetailedBelief: (detailedBelief: WrappedOptionalBelief) => void;
+  setDetailBeliefFromView: (fromDisplay: Display) => void;
   setDisplay: (newDisplay: Display) => void;
 }
 
@@ -15,6 +16,7 @@ export default function Beliefs({
   beliefs,
   updateBelief,
   setDetailedBelief,
+  setDetailBeliefFromView,
   setDisplay
 }: Props): JSX.Element {
 
@@ -29,6 +31,7 @@ export default function Beliefs({
         index={wrappedStaleBelief.savedIndex}
         updateBelief={updateBelief}
         setDetailedBelief={setDetailedBelief}
+        setDetailBeliefFromView={setDetailBeliefFromView}
         setDisplay={setDisplay}
         key={i}
       />
@@ -40,6 +43,7 @@ export default function Beliefs({
         index={i}
         updateBelief={updateBelief}
         setDetailedBelief={setDetailedBelief}
+        setDetailBeliefFromView={setDetailBeliefFromView}
         setDisplay={setDisplay}
         key={i}
       />
