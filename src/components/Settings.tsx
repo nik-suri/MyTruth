@@ -1,5 +1,5 @@
 import { LeftOutlined } from '@ant-design/icons';
-import { InputNumber } from 'antd';
+import { InputNumber, message } from 'antd';
 import React, { useState } from 'react';
 import { bkg } from '../lib/util';
 
@@ -22,6 +22,7 @@ export default function Settings({
   function saveSettings(): void {
     chrome.storage.sync.set({ 'millisecondsTillStale': innerMillisecondsTillStale }, () => {
       bkg?.console.log('Value is set to ', innerMillisecondsTillStale);
+      message.success('Settings Saved!');
     });
 
     setMillisecondsTillStale(innerMillisecondsTillStale);
