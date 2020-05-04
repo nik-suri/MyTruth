@@ -22,7 +22,7 @@ export default function Settings({
   function saveSettings(): void {
     chrome.storage.sync.set({ 'millisecondsTillStale': innerMillisecondsTillStale }, () => {
       bkg?.console.log('Value is set to ', innerMillisecondsTillStale);
-      message.success('Settings Saved!');
+      message.success('Settings Saved!', 1);
     });
 
     setMillisecondsTillStale(innerMillisecondsTillStale);
@@ -41,6 +41,7 @@ export default function Settings({
   const saveBtn: JSX.Element | null = !settingDidChange ? null : (
     <div
       className='customBtn pop green'
+      style={{ textAlign: 'center' }}
       onClick={(): void => saveSettings()}
     >
       Save
@@ -60,7 +61,7 @@ export default function Settings({
         <div>
           <p>Stale Belief Cutoff:</p>
           <p className='infoText'>
-            * This sets the amount of time until you are notified to update your beliefs.
+            * This sets the amount of time after you save a belief until you are notified to update it.
           </p>
         </div>
         <InputNumber

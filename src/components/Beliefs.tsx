@@ -1,9 +1,10 @@
 import { LeftOutlined } from '@ant-design/icons';
+import { Result } from 'antd';
 import React from 'react';
 import BeliefItem from './BeliefItem';
 
 interface Props {
-  title: string;
+  stale?: boolean;
   beliefs: SavedBelief[] | WrappedStaleBelief[];
   updateBelief: (atIndex: number, newStatus: BeliefStatus) => void;
   setDetailedBelief: (detailedBelief: WrappedOptionalBelief) => void;
@@ -12,13 +13,29 @@ interface Props {
 }
 
 export default function Beliefs({
-  title,
+  stale = false,
   beliefs,
   updateBelief,
   setDetailedBelief,
   setDetailBeliefFromView,
   setDisplay
 }: Props): JSX.Element {
+
+  let title: string;
+  let emptyStatus: 403 | 404 | 500 | '403' | '404' | '500' | 'success' | 'error' | 'info' | 'warning' | undefined;
+  let emptyTitle: string;
+  let emptySubtitle: string;
+  if (stale) {
+    title = 'My Old Beliefs';
+    emptyStatus = 'success';
+    emptyTitle = 'You\'re all set!';
+    emptySubtitle = 'You have no old beliefs. You\'re an epistemic pro!';
+  } else {
+    title = 'My Beliefs';
+    emptyStatus = 'info';
+    emptyTitle = 'You have no beliefs!';
+    emptySubtitle = 'Add a belief by highlighting text in your browser and pressing ctrl+shift+s (cmd+shift+s if mac)!';
+  }
 
   let beliefElements: JSX.Element[];
   if (beliefs.length === 0) {
@@ -69,7 +86,13 @@ export default function Beliefs({
 
       </div>
 
-      {beliefElements}
+      {beliefElements.length > 0 ? beliefElements : (
+        <Result
+          status={emptyStatus}
+          title={emptyTitle}
+          subTitle={emptySubtitle}
+        />
+      )}
     </div>
   );
 }
