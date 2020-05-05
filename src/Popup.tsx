@@ -14,6 +14,7 @@ export default function Popup(): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
   const [display, setDisplay] = useState<Display>(Display.Main);
   const [selection, setSelection] = useState('');
+  const [selectionSavedAs, setSelectionSavedAs] = useState<BeliefStatus | null>(null);
   const [millisecondsTillStale, setMillisecondsTillStale] = useState(0);
   const [beliefs, setBeliefs] = useState<SavedBelief[]>([]);
   const [detailBeliefFromView, setDetailBeliefFromView] = useState<Display | null>(null);
@@ -91,6 +92,7 @@ export default function Popup(): JSX.Element {
         bkg?.console.log('Value is set to ', newBeliefs);
       });
 
+      setSelectionSavedAs(status);
       setBeliefs(newBeliefs);
       setDisplay(Display.SaveSuccess);
     });
@@ -182,6 +184,7 @@ export default function Popup(): JSX.Element {
         {staleBeliefsNotif}
         <Content
           selection={selection}
+          selectionSavedAs={selectionSavedAs}
           saveBelief={saveBelief}
           setDisplay={setDisplay}
         />
