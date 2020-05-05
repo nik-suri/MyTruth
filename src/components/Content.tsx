@@ -50,7 +50,7 @@ export default function Content({
       <Empty
         description={
           <span>
-            Highlight some text and press ctrl+shift+s (cmd+shift+s if mac)!
+            Highlight some text and press Ctrl+Shift+S (Cmd+Shift+S if mac)!
           </span>
         }
       />
@@ -62,6 +62,11 @@ export default function Content({
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           {selectionBtns}
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--tertiary-col)' }}>
+            *Press Ctrl+Shit+S (Cmd+Shift+S if Mac) to open/close this popup.
+          </p>
         </div>
       </>
     );
