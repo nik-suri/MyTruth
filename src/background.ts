@@ -1,4 +1,4 @@
-interface Beliefs {
+interface StorageValues {
   beliefs: string[];
   millisecondsTillStale: number;
 }
@@ -6,15 +6,23 @@ interface Beliefs {
 chrome.runtime.onInstalled.addListener(() => {
   console.log('installed');
 
-  const threeWeekMilliseconds = 1814400000;
+  chrome.storage.sync.get(null, data => {
+    if (!data.beliefs) {
+      console.log('Setting initial values..');
 
-  // instantiate values
-  const beliefs: Beliefs = {
-    beliefs: [],
-    millisecondsTillStale: threeWeekMilliseconds
-  };
-  
-  chrome.storage.sync.set(beliefs, function() {
-    console.log('initial belief values (empty) set.');
+      const threeWeekMilliseconds = 1814400000;
+
+      // instantiate values
+      const beliefs: StorageValues = {
+        beliefs: [],
+        millisecondsTillStale: threeWeekMilliseconds
+      };
+      
+      chrome.storage.sync.set(beliefs, function() {
+        console.log('initial object set.');
+      });
+    } else {
+      console.log('Data currently stored is', data);
+    }
   });
 });
