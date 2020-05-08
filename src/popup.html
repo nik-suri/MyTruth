@@ -8,6 +8,12 @@
     html {
       min-width: 500px;
     }
+
+    @-moz-document url-prefix() {
+      html {
+        min-width: -moz-fit-content;
+      }
+    }
   </style>
 </head>
 

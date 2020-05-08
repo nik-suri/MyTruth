@@ -1,32 +1,51 @@
 {
-  "name": "accountability-extension",
+  "name": "mytruth",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm run clean",
-    "start": "concurrently --kill-others \"npm:compile:watch\" \"npm:parcel:watch\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext ts,tsx src",
     "compile": "tsc -p . --noEmit",
     "compile:watch": "tsc -p . --noEmit --watch",
     "parcel": "parcel build src/background.ts src/popup.html",
     "parcel:watch": "parcel watch --no-hmr src/background.ts src/popup.html",
-    "prebuild": "npm run clean",
-    "build": "npm run lint && npm run compile && npm run parcel",
-    "build:upload": "npm run build && zip -vr dist.zip ./dist",
-    "clean": "rimraf ./dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean:firefox": "rimraf ./dist_firefox",
+    "clean:chrome": "rimraf ./dist_chrome",
+    "prestart:chrome": "npm run clean:chrome",
+    "start:chrome": "concurrently --kill-others \"npm:compile:watch\" \"npm:parcel:watch -- --out-dir=dist_chrome\"",
+    "prestart:firefox": "npm run clean:firefox",
+    "start:firefox": "concurrently --kill-others \"npm:compile:watch\" \"npm:parcel:watch -- --out-dir=dist_firefox\"",
+    "prebuild:chrome": "npm run clean:chrome",
+    "build:chrome": "npm run lint && npm run compile && npm run parcel -- --out-dir=dist_chrome",
+    "postbuild:chrome": "zip -vr dist_chrome.zip ./dist_chrome",
+    "prebuild:firefox": "npm run clean:firefox",
+    "build:firefox": "npm run lint && npm run compile && npm run parcel -- --out-dir=dist_firefox",
+    "postbuild:firefox": "zip -vr dist_firefox.zip ./dist_firefox"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nik-suri/gened1023-project.git"
+    "url": "git+https://github.com/nik-suri/MyTruth.git"
   },
   "author": "Nikhil Suri",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nik-suri/gened1023-project/issues"
+    "url": "https://github.com/nik-suri/MyTruth/issues"
   },
-  "homepage": "https://github.com/nik-suri/gened1023-project#readme",
+  "homepage": "https://github.com/nik-suri/MyTruth#readme",
+  "staticFiles": {
+    "staticPath": [
+      {
+        "outDirPattern": "**/dist_chrome",
+        "staticPath": "static_chrome"
+      },
+      {
+        "outDirPattern": "**/dist_firefox",
+        "staticPath": "static_firefox"
+      },
+      "static"
+    ]
+  },
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
     "antd": "^4.1.5",
