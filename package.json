@@ -21,7 +21,7 @@
     "postbuild:chrome": "zip -vr dist_chrome.zip ./dist_chrome",
     "prebuild:firefox": "npm run clean:firefox",
     "build:firefox": "npm run lint && npm run compile && npm run parcel -- --out-dir=dist_firefox",
-    "postbuild:firefox": "zip -vr dist_firefox.zip ./dist_firefox"
+    "postbuild:firefox": "cd ./dist_firefox && zip -r -FS ../dist_firefox.zip *"
   },
   "repository": {
     "type": "git",
