@@ -50,7 +50,7 @@ export default function Content({
       <Empty
         description={
           <span>
-            Highlight some text and press Ctrl+Shift+S (Cmd+Shift+S if mac)!
+            Highlight some text and press Alt+Shift+S!
           </span>
         }
       />
@@ -65,7 +65,7 @@ export default function Content({
         </div>
         <div style={{ marginTop: '20px' }}>
           <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--tertiary-col)' }}>
-            *Press Ctrl+Shit+S (Cmd+Shift+S if Mac) to open/close this popup.
+            *Press Alt+Shift+S to open/close this popup.
           </p>
         </div>
       </>
