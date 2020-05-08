@@ -65,7 +65,7 @@ export default function Settings({
           </p>
         </div>
         <InputNumber
-          style={{ width: '70px', height: 'fit-content' }}
+          style={{ width: '70px', height: 'min-content' }}
           size='small'
           min={1}
           max={8}
